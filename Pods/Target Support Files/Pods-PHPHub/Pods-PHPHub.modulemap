@@ -1,0 +1,6 @@
+framework module Pods_PHPHub {
+  umbrella header "Pods-PHPHub-umbrella.h"
+
+  export *
+  module * { export * }
+}

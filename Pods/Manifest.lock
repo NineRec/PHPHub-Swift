@@ -1,0 +1,25 @@
+PODS:
+  - Alamofire (3.1.3)
+  - Reachability (3.2)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.0)
+  - Reachability
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+
+EXTERNAL SOURCES:
+  SwiftyJSON:
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  SwiftyJSON:
+    :commit: 8e618c8baf6323a5079c6549bb38d48357b31630
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+SPEC CHECKSUMS:
+  Alamofire: 9f93b56389e48def9220dd57d1f44b1927229a5a
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+COCOAPODS: 0.39.0
