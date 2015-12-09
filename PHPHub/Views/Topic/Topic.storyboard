@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MDO-tD-dUm">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Topic List Table View Controller-->
+        <scene sceneID="Tkb-11-Pdc">
+            <objects>
+                <tableViewController storyboardIdentifier="TopicList" id="MDO-tD-dUm" customClass="TopicListTableViewController" customModule="PHPHub" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" id="TO0-Sc-VxF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="66" id="7Lw-ta-fZd" customClass="TopicListTableViewCell" customModule="PHPHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="66"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Lw-ta-fZd" id="PcS-sj-Q2r">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WiH-ST-rqO">
+                                            <rect key="frame" x="8" y="8" width="584" height="57"/>
+                                            <animations/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TopicTitleLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iot-RX-7Ho">
+                                            <rect key="frame" x="64" y="18" width="480" height="21"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="TopicInfoLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vqx-U2-cEl">
+                                            <rect key="frame" x="64" y="39" width="480" height="16"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iB-QI-6wZ">
+                                            <rect key="frame" x="552" y="21" width="32" height="32"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="32" id="5c2-V6-Jmq"/>
+                                                <constraint firstAttribute="height" constant="32" id="GWe-En-YYV"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="nT6-Vo-pxW">
+                                            <rect key="frame" x="18" y="18" width="38" height="38"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="38" id="5EI-hD-JFJ"/>
+                                                <constraint firstAttribute="width" constant="38" id="bL2-ae-cap"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstItem="WiH-ST-rqO" firstAttribute="top" secondItem="nT6-Vo-pxW" secondAttribute="bottom" constant="-48" id="1al-BF-XP4"/>
+                                        <constraint firstItem="WiH-ST-rqO" firstAttribute="trailing" secondItem="PcS-sj-Q2r" secondAttribute="trailingMargin" id="6qR-J6-fiW"/>
+                                        <constraint firstItem="8iB-QI-6wZ" firstAttribute="leading" secondItem="iot-RX-7Ho" secondAttribute="trailing" constant="8" id="FUE-Cx-xSS"/>
+                                        <constraint firstItem="WiH-ST-rqO" firstAttribute="top" secondItem="nT6-Vo-pxW" secondAttribute="bottom" constant="-48" id="Ggt-xT-Phv"/>
+                                        <constraint firstItem="nT6-Vo-pxW" firstAttribute="top" secondItem="WiH-ST-rqO" secondAttribute="top" constant="10" id="PYz-5O-Sw2"/>
+                                        <constraint firstItem="WiH-ST-rqO" firstAttribute="leading" secondItem="PcS-sj-Q2r" secondAttribute="leadingMargin" id="Rwi-xT-Uib"/>
+                                        <constraint firstItem="8iB-QI-6wZ" firstAttribute="leading" secondItem="WiH-ST-rqO" secondAttribute="trailing" constant="-38" id="S4L-Tj-cqb"/>
+                                        <constraint firstItem="iot-RX-7Ho" firstAttribute="leading" secondItem="nT6-Vo-pxW" secondAttribute="trailing" constant="8" id="VYv-Za-XtV"/>
+                                        <constraint firstItem="WiH-ST-rqO" firstAttribute="leading" secondItem="nT6-Vo-pxW" secondAttribute="trailing" constant="-48" id="XOc-Km-MJb"/>
+                                        <constraint firstItem="Vqx-U2-cEl" firstAttribute="top" secondItem="iot-RX-7Ho" secondAttribute="bottom" id="YLR-br-yOg"/>
+                                        <constraint firstItem="WiH-ST-rqO" firstAttribute="top" secondItem="PcS-sj-Q2r" secondAttribute="topMargin" id="ar1-3g-iyx"/>
+                                        <constraint firstItem="8iB-QI-6wZ" firstAttribute="trailing" secondItem="WiH-ST-rqO" secondAttribute="trailing" constant="-8" id="dne-eu-Ogp"/>
+                                        <constraint firstItem="8iB-QI-6wZ" firstAttribute="leading" secondItem="Vqx-U2-cEl" secondAttribute="trailing" constant="8" id="eaT-NL-137"/>
+                                        <constraint firstItem="Vqx-U2-cEl" firstAttribute="leading" secondItem="iot-RX-7Ho" secondAttribute="leading" id="ecq-TV-9XL"/>
+                                        <constraint firstAttribute="bottom" secondItem="WiH-ST-rqO" secondAttribute="bottom" id="fG2-hI-OoT"/>
+                                        <constraint firstItem="iot-RX-7Ho" firstAttribute="leading" secondItem="WiH-ST-rqO" secondAttribute="trailing" constant="-528" id="fPN-tC-lts"/>
+                                        <constraint firstItem="nT6-Vo-pxW" firstAttribute="leading" secondItem="WiH-ST-rqO" secondAttribute="leading" constant="10" id="tcB-nd-KWT"/>
+                                        <constraint firstItem="iot-RX-7Ho" firstAttribute="top" secondItem="WiH-ST-rqO" secondAttribute="top" constant="10" id="w6t-DM-b6E"/>
+                                        <constraint firstItem="WiH-ST-rqO" firstAttribute="leading" secondItem="nT6-Vo-pxW" secondAttribute="trailing" constant="-48" id="wyX-FY-Pf5"/>
+                                        <constraint firstItem="Vqx-U2-cEl" firstAttribute="bottom" secondItem="WiH-ST-rqO" secondAttribute="bottom" constant="-10" id="xT5-bm-1Mu"/>
+                                        <constraint firstItem="8iB-QI-6wZ" firstAttribute="centerY" secondItem="WiH-ST-rqO" secondAttribute="centerY" id="zq4-rC-a3o"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="1al-BF-XP4"/>
+                                            <exclude reference="Ggt-xT-Phv"/>
+                                            <exclude reference="XOc-Km-MJb"/>
+                                            <exclude reference="wyX-FY-Pf5"/>
+                                            <exclude reference="fPN-tC-lts"/>
+                                            <exclude reference="S4L-Tj-cqb"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <outlet property="avatarImageView" destination="nT6-Vo-pxW" id="wni-ai-Vez"/>
+                                    <outlet property="basicView" destination="WiH-ST-rqO" id="z2L-7c-ZYP"/>
+                                    <outlet property="topicInfoLabel" destination="Vqx-U2-cEl" id="05m-47-lYR"/>
+                                    <outlet property="topicRepliesCountLabel" destination="8iB-QI-6wZ" id="cCa-py-0bw"/>
+                                    <outlet property="topicTitleLabel" destination="iot-RX-7Ho" id="VI4-vd-5it"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="MDO-tD-dUm" id="Szg-C1-nXn"/>
+                            <outlet property="delegate" destination="MDO-tD-dUm" id="wC3-rr-QUT"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FzY-BK-tnG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="679" y="402"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="avatar_placeholder" width="38" height="38"/>
+    </resources>
+</document>

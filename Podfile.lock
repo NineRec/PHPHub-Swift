@@ -1,10 +1,12 @@
 PODS:
   - Alamofire (3.1.3)
+  - PageMenu (1.2.8)
   - Reachability (3.2)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
+  - PageMenu
   - Reachability
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -19,6 +21,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 9f93b56389e48def9220dd57d1f44b1927229a5a
+  PageMenu: 703e82e173f54a4626ab88fcdca7703ee52e0cbe
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
