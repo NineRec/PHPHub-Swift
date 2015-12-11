@@ -85,12 +85,16 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-PHPHub/Alamofire.framework"
+  install_framework "Pods-PHPHub/KeychainAccess.framework"
+  install_framework "Pods-PHPHub/Kingfisher.framework"
   install_framework "Pods-PHPHub/PageMenu.framework"
   install_framework "Pods-PHPHub/Reachability.framework"
   install_framework "Pods-PHPHub/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-PHPHub/Alamofire.framework"
+  install_framework "Pods-PHPHub/KeychainAccess.framework"
+  install_framework "Pods-PHPHub/Kingfisher.framework"
   install_framework "Pods-PHPHub/PageMenu.framework"
   install_framework "Pods-PHPHub/Reachability.framework"
   install_framework "Pods-PHPHub/SwiftyJSON.framework"

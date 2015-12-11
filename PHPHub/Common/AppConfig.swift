@@ -9,8 +9,14 @@
 struct AppConfig {
     static let Debug = true
     
-    static var ApiBasicUrl:String {
-        return Debug ? "https://staging_api.phphub.org/v1" : "https://api.phphub.org/v1"
+    struct Api {
+        static var ApiBasicUrl:String {
+            return Debug ? "https://staging_api.phphub.org/v1" : "https://api.phphub.org/v1"
+        }
+        static let Client_id = "kHOugsx4dmcXwvVbmLkd"
+        static let Client_secret = "PuuFCrF94MloSbSkxpwS"
     }
     
+    static let KeyChainService = "PHPHubService"
+    static let KeyChainAccount = "com.PHPHub.keychain"
 }

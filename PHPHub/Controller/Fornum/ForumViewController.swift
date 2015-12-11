@@ -1,5 +1,5 @@
 //
-//  FornumViewController.swift
+//  ForumViewController.swift
 //  PHPHub
 //
 //  Created by 2014-104 on 15/12/9.
@@ -9,15 +9,13 @@
 import UIKit
 import PageMenu
 
-class FornumViewController: UIViewController {
+class ForumViewController: UIViewController {
 
     var pageMenu: CAPSPageMenu?
     var controllerArray: [UIViewController] = []
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.title = "论坛"
         
         // Customize menu (Optional)
         let parameters: [CAPSPageMenuOption] = [
@@ -37,6 +35,17 @@ class FornumViewController: UIViewController {
             .MenuItemSeparatorPercentageHeight(0.1)
         ]
         
+        let oneVC = UIViewController()
+        oneVC.title = "最新"
+        
+        let towVC = UIViewController()
+        towVC.title = "热门"
+        
+        let jobVC = UIViewController()
+        jobVC.title = "招聘"
+        
+        controllerArray = [oneVC, towVC, jobVC]
+        
         // Configure the scroll menu
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
         pageMenu!.delegate = self
@@ -45,7 +54,7 @@ class FornumViewController: UIViewController {
     }
 }
 
-extension FornumViewController: CAPSPageMenuDelegate {
+extension ForumViewController: CAPSPageMenuDelegate {
     func willMoveToPage(controller: UIViewController, index: Int) {
         return
     }
