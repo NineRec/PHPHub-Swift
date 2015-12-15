@@ -11,11 +11,11 @@ import Alamofire
 import SwiftyJSON
 
 public protocol ResponseObjectSerializable {
-    init?(response: NSHTTPURLResponse)
+    init?(jsonData: JSON)
 }
 
 public protocol ResponseCollectionSerializable {
-    static func collection(response response: NSHTTPURLResponse, representation: AnyObject) -> [Self]
+    static func collection(jsonData jsonData: JSON) -> [Self]
 }
 
 extension Alamofire.Request {
@@ -23,14 +23,13 @@ extension Alamofire.Request {
         let responseSerializer = ResponseSerializer<T, NSError> { request, response, data, error in
             guard error == nil else { return .Failure(error!) }
             
-            let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
+            let JSONResponseSerializer = Request.SwiftyJSONResponseSerializer()
             let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
             
             switch result {
             case .Success(let value):
                 if let
-                    response = response,
-                    responseObject = T(response: response)
+                    responseObject = T(jsonData: value)
                 {
                     return .Success(responseObject)
                 } else {
@@ -50,13 +49,13 @@ extension Alamofire.Request {
         let responseSerializer = ResponseSerializer<[T], NSError> { request, response, data, error in
             guard error == nil else { return .Failure(error!) }
             
-            let JSONSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
+            let JSONSerializer = Request.SwiftyJSONResponseSerializer()
             let result = JSONSerializer.serializeResponse(request, response, data, error)
             
             switch result {
             case .Success(let value):
-                if let response = response {
-                    return .Success(T.collection(response: response, representation: value))
+                if let _ = response {
+                    return .Success(T.collection(jsonData: value))
                 } else {
                     let failureReason = "Response collection could not be serialized due to nil response"
                     let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
