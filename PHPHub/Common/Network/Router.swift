@@ -9,20 +9,15 @@
 import Alamofire
 
 enum Router: URLRequestConvertible {
-    static let baseURLString = "https://staging_api.phphub.org/v1"
     static var AccessToken: String?
     
     // ImV2 API
     case Authorize([String: AnyObject])
-    case Login([String: AnyObject])
-    case ForgetPassword
-    case BusInfo
-    
+    case TopicList([String: AnyObject])
     
     var method: Alamofire.Method {
         switch self {
-        case .Authorize,
-            .Login:
+        case .Authorize:
             return .POST
         default:
             return .GET
@@ -32,29 +27,21 @@ enum Router: URLRequestConvertible {
     var path: String {
         switch self {
         case .Authorize:
-            return "/auth/authorize"
-        case .Login:
-            return "/auth/login"
-        case .BusInfo:
-            return "/users"
-        case .ForgetPassword:
-            return "/users/"
+            return "/oauth/access_token"
+        case .TopicList:
+            return "/topic"
         }
     }
     
     // MARK: URLRequestConvertible
     
     var URLRequest: NSMutableURLRequest {
-        let URL = NSURL(string: Router.baseURLString)!
+        let URL = NSURL(string: AppConfig.Api.BasicUrl)!
         let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
         mutableURLRequest.HTTPMethod = method.rawValue
         
-        let token = Router.AccessToken ?? ""
-        
         switch self {
         case .Authorize(let parameters):
-            return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: parameters).0
-        case .Login(let parameters):
             return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: parameters).0
         default:
             return mutableURLRequest
