@@ -19,19 +19,23 @@ class MainTabBarController: UITabBarController {
     }
     
     private func setupTabBarItems() {
-        let essentialVC = UIViewController()
-        essentialVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "essential_icon"), selectedImage: UIImage(named: "essential_selected_icon"))
+        let essentialVC = UIStoryboard(name: "Topic", bundle: nil).instantiateViewControllerWithIdentifier("TopicList")
+        essentialVC.title = "推荐"
+        let essentialNC = UINavigationController(rootViewController: essentialVC)
+        essentialNC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "essential_icon"), selectedImage: UIImage(named: "essential_selected_icon"))
         
         let forumVC = ForumViewController()
         forumVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "forum_icon"), selectedImage: UIImage(named: "forum_selected_icon"))
         
         let wikiVC = UIViewController()
-        wikiVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "wiki_icon"), selectedImage: UIImage(named: "wiki_selected_icon"))
+        wikiVC.title = "社区WIKI"
+        let wikiNC = UINavigationController(rootViewController: wikiVC)
+        wikiNC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "wiki_icon"), selectedImage: UIImage(named: "wiki_selected_icon"))
         
         let meVC = UIViewController()
         meVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "me_icon"), selectedImage: UIImage(named: "me_selected_icon"))
         
-        let controllers: [UIViewController] = [essentialVC, forumVC, wikiVC, meVC]
+        let controllers: [UIViewController] = [essentialNC, forumVC, wikiNC, meVC]
         setViewControllers(controllers, animated: true)
     }
     

@@ -10,16 +10,41 @@ import UIKit
 
 class TopicListTableViewController: UITableViewController {
 
+    struct Topic {
+        var title: String?
+        var info: String?
+        var replies: Int?
+        var avatar: UIImage?
+    }
+    
+    var topicList = [Topic]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.clearsSelectionOnViewWillAppear = true
+        
+        // pull to refresh
+        refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+        
+        // temp the data
+        let topic1 = Topic(title: "Test", info: "TESTINFO", replies: 12, avatar: UIImage(named: "avatar_placeholder"))
+        let topic2 = Topic(title: "Test", info: "TESTINFO", replies: 12, avatar: UIImage(named: "avatar_placeholder"))
+        let topic3 = Topic(title: "Test", info: "TESTINFO", replies: 12, avatar: UIImage(named: "avatar_placeholder"))
+        
+        topicList.append(topic1)
+        topicList.append(topic2)
+        topicList.append(topic3)
     }
 
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        let topic4 = Topic(title: "Test", info: "TESTINFO", replies: 12, avatar: UIImage(named: "avatar_placeholder"))
+        topicList.append(topic4)
+        
+        tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -27,53 +52,25 @@ class TopicListTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return topicList.count
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cellIdentifier = "TopicListCell"
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! TopicListTableViewCell
+        
+        let topic = topicList[indexPath.row]
+        cell.topicTitleLabel.text = topic.title!
+        cell.topicInfoLabel.text = topic.info!
+        cell.topicRepliesCountLabel.text = String(topic.replies!)
+        cell.avatarImageView.image = topic.avatar
         return cell
     }
-    */
 
-    /*
-    // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation

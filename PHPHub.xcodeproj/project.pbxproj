@@ -22,6 +22,13 @@
 		251E94311C184FB800894F8C /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E94301C184FB800894F8C /* AppConfig.swift */; };
 		2524FFA61C197E4300706D56 /* NSDate+TimeAgoSince.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2524FFA51C197E4300706D56 /* NSDate+TimeAgoSince.swift */; };
 		2524FFAE1C19CF0900706D56 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2524FFAD1C19CF0900706D56 /* MainTabBarController.swift */; };
+		253304771C1D97ED00E3C5F3 /* AuthorizeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253304761C1D97ED00E3C5F3 /* AuthorizeApi.swift */; };
+		2533047A1C1E9E5C00E3C5F3 /* AccessTokenHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253304791C1E9E5C00E3C5F3 /* AccessTokenHandler.swift */; };
+		2533047D1C20079300E3C5F3 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2533047C1C20079300E3C5F3 /* Topic.swift */; };
+		2533047F1C20461900E3C5F3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2533047E1C20461900E3C5F3 /* User.swift */; };
+		253304811C20615B00E3C5F3 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253304801C20615B00E3C5F3 /* Node.swift */; };
+		253304831C20631300E3C5F3 /* TopicApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253304821C20631300E3C5F3 /* TopicApi.swift */; };
+		253304851C20636700E3C5F3 /* ApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253304841C20636700E3C5F3 /* ApiHandler.swift */; };
 		6DDCE3C0C75815B4239B1EB2 /* Pods_PHPHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1778C7C86A4B30F7DD48137 /* Pods_PHPHub.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +62,13 @@
 		251E94301C184FB800894F8C /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppConfig.swift; path = Common/AppConfig.swift; sourceTree = "<group>"; };
 		2524FFA51C197E4300706D56 /* NSDate+TimeAgoSince.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDate+TimeAgoSince.swift"; path = "Common/Utils/NSDate+TimeAgoSince.swift"; sourceTree = "<group>"; };
 		2524FFAD1C19CF0900706D56 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = Controller/MainTabBar/MainTabBarController.swift; sourceTree = "<group>"; };
+		253304761C1D97ED00E3C5F3 /* AuthorizeApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthorizeApi.swift; path = Apis/AuthorizeApi.swift; sourceTree = "<group>"; };
+		253304791C1E9E5C00E3C5F3 /* AccessTokenHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessTokenHandler.swift; path = Handlers/AccessTokenHandler.swift; sourceTree = "<group>"; };
+		2533047C1C20079300E3C5F3 /* Topic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Topic.swift; path = Models/Topic.swift; sourceTree = "<group>"; };
+		2533047E1C20461900E3C5F3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
+		253304801C20615B00E3C5F3 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Node.swift; path = Models/Node.swift; sourceTree = "<group>"; };
+		253304821C20631300E3C5F3 /* TopicApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopicApi.swift; path = Apis/TopicApi.swift; sourceTree = "<group>"; };
+		253304841C20636700E3C5F3 /* ApiHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHandler.swift; path = Handlers/ApiHandler.swift; sourceTree = "<group>"; };
 		6787A7C6A353DD2C1941C434 /* Pods-PHPHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PHPHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PHPHub/Pods-PHPHub.debug.xcconfig"; sourceTree = "<group>"; };
 		894CC7717934CE3DAFCF95F7 /* Pods-PHPHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PHPHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-PHPHub/Pods-PHPHub.release.xcconfig"; sourceTree = "<group>"; };
 		B1778C7C86A4B30F7DD48137 /* Pods_PHPHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PHPHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +116,8 @@
 		251E93E71C156E8800894F8C /* PHPHub */ = {
 			isa = PBXGroup;
 			children = (
+				253304781C1E9E3700E3C5F3 /* Handlers */,
+				253304751C1D97C000E3C5F3 /* Apis */,
 				251E94221C181BD900894F8C /* Models */,
 				251E94171C17D5F400894F8C /* Controllers */,
 				251E940B1C158EEC00894F8C /* Views */,
@@ -171,6 +187,7 @@
 		251E94171C17D5F400894F8C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2533047B1C1FE06A00E3C5F3 /* Essential */,
 				2524FFAA1C19CE3900706D56 /* MainTabBar */,
 				251E941F1C180F8A00894F8C /* Topic */,
 				251E94181C17D5FB00894F8C /* Forum */,
@@ -197,6 +214,9 @@
 		251E94221C181BD900894F8C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2533047C1C20079300E3C5F3 /* Topic.swift */,
+				2533047E1C20461900E3C5F3 /* User.swift */,
+				253304801C20615B00E3C5F3 /* Node.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -224,6 +244,31 @@
 				2524FFAD1C19CF0900706D56 /* MainTabBarController.swift */,
 			);
 			name = MainTabBar;
+			sourceTree = "<group>";
+		};
+		253304751C1D97C000E3C5F3 /* Apis */ = {
+			isa = PBXGroup;
+			children = (
+				253304761C1D97ED00E3C5F3 /* AuthorizeApi.swift */,
+				253304821C20631300E3C5F3 /* TopicApi.swift */,
+			);
+			name = Apis;
+			sourceTree = "<group>";
+		};
+		253304781C1E9E3700E3C5F3 /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				253304791C1E9E5C00E3C5F3 /* AccessTokenHandler.swift */,
+				253304841C20636700E3C5F3 /* ApiHandler.swift */,
+			);
+			name = Handlers;
+			sourceTree = "<group>";
+		};
+		2533047B1C1FE06A00E3C5F3 /* Essential */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Essential;
 			sourceTree = "<group>";
 		};
 		2EAFB8CA29B5E9826B59510C /* Frameworks */ = {
@@ -397,15 +442,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2533047F1C20461900E3C5F3 /* User.swift in Sources */,
+				253304831C20631300E3C5F3 /* TopicApi.swift in Sources */,
 				251E94311C184FB800894F8C /* AppConfig.swift in Sources */,
+				253304851C20636700E3C5F3 /* ApiHandler.swift in Sources */,
+				2533047D1C20079300E3C5F3 /* Topic.swift in Sources */,
 				251E942B1C181D4D00894F8C /* Router.swift in Sources */,
 				2524FFAE1C19CF0900706D56 /* MainTabBarController.swift in Sources */,
+				2533047A1C1E9E5C00E3C5F3 /* AccessTokenHandler.swift in Sources */,
 				251E941E1C17F2AA00894F8C /* TopicListTableViewCell.swift in Sources */,
 				251E93E91C156E8800894F8C /* AppDelegate.swift in Sources */,
 				251E942A1C181D4D00894F8C /* AlamofireExtension.swift in Sources */,
+				253304771C1D97ED00E3C5F3 /* AuthorizeApi.swift in Sources */,
 				251E94211C180FB600894F8C /* TopicListTableViewController.swift in Sources */,
 				2524FFA61C197E4300706D56 /* NSDate+TimeAgoSince.swift in Sources */,
 				251E941A1C17D64500894F8C /* ForumViewController.swift in Sources */,
+				253304811C20615B00E3C5F3 /* Node.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

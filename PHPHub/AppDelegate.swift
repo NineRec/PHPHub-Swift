@@ -23,6 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootViewController = MainTabBarController()
         window?.rootViewController = rootViewController
         
+        let accessTokenHandler = AccessTokenHandler()
+        guard let _ = accessTokenHandler.getLocalClientAccessToken() else {
+            accessTokenHandler.getServerClientAccessToken()
+            return true
+        }
+        
         return true
     }
 
