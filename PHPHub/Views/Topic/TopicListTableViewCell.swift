@@ -18,13 +18,8 @@ class TopicListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        topicRepliesCountLabel.layer.cornerRadius = topicRepliesCountLabel.frame.height / 2
+        topicRepliesCountLabel.clipsToBounds = true
     }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }
