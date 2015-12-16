@@ -10,58 +10,35 @@ import Alamofire
 import SwiftyJSON
 
 class TopicApi {
-    class func getClientAccessToken(callback: JSON -> Void) {
+    class func getTopicListByFilter(filter: String, atPage: Int, callback: [Topic] -> Void) {
         let parameters:[String: AnyObject] = [
-            "grant_type" : "client_credentials",
-            "client_id": AppConfig.Api.Client_id,
-            "client_secret": AppConfig.Api.Client_secret
+            "include" : "node,last_reply_user,user",
+            "filters": filter,
+            "per_page": 20,
+            "page": atPage,
+            "columns": "user(signature)"
         ]
         
-        Alamofire.request(Router.Authorize(parameters))
-            .responseSwiftyJSON { response in
-                switch response.result {
-                case .Success(let value):
-                    callback(value)
-                case .Failure(let error):
-                    debugPrint(error)
-                }
-        }
+        ApiHandler.CollectionRequest(Router.TopicList(parameters), callback: callback)
     }
     
-    class func getLoginAccessToken(callback: JSON -> Void) {
-        let parameters:[String: AnyObject] = [
-            "grant_type" : "client_credentials",
-            "client_id": AppConfig.Api.Client_id,
-            "client_secret": AppConfig.Api.Client_secret
-        ]
-        
-        Alamofire.request(Router.Authorize(parameters))
-            .responseSwiftyJSON { response in
-                switch response.result {
-                case .Success(let value):
-                    callback(value)
-                case .Failure(let error):
-                    debugPrint(error)
-                }
-        }
+    class func getEssentialTopicList(atPage: Int, callback: [Topic] -> Void) {
+        getTopicListByFilter("excellent", atPage: atPage, callback: callback)
     }
     
-    class func refreshLoginAccessToken(callback: JSON -> Void) {
-        let parameters:[String: AnyObject] = [
-            "grant_type" : "client_credentials",
-            "client_id": AppConfig.Api.Client_id,
-            "client_secret": AppConfig.Api.Client_secret
-        ]
-        
-        Alamofire.request(Router.Authorize(parameters))
-            .responseSwiftyJSON { response in
-                switch response.result {
-                case .Success(let value):
-                    callback(value)
-                case .Failure(let error):
-                    debugPrint(error)
-                }
-        }
+    class func getNewestTopicList(atPage: Int, callback: [Topic] -> Void) {
+        getTopicListByFilter("newest", atPage: atPage, callback: callback)
+    }
+    
+    class func getHotestTopicList(atPage: Int, callback: [Topic] -> Void) {
+        getTopicListByFilter("vot", atPage: atPage, callback: callback)
+    }
+    
+    class func getJobTopicList(atPage: Int, callback: [Topic] -> Void) {
+        getTopicListByFilter("jobs", atPage: atPage, callback: callback)
+    }
+    
+    class func getWikiTopicList(atPage: Int, callback: [Topic] -> Void) {
+        getTopicListByFilter("wiki", atPage: atPage, callback: callback)
     }
 }
-
