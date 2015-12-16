@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import KeychainAccess
 
 enum Router: URLRequestConvertible {
     static var AccessToken: String?
@@ -39,6 +40,14 @@ enum Router: URLRequestConvertible {
         let URL = NSURL(string: AppConfig.Api.BasicUrl)!
         let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
         mutableURLRequest.HTTPMethod = method.rawValue
+        
+        // Set the Header
+        let keychain = Keychain(service: AppConfig.KeyChainService)
+        if let token =  keychain[AppConfig.KeyChainClientAccount] {
+            mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        mutableURLRequest.setValue("application/vnd.PHPHub.v1+json", forHTTPHeaderField: "Accept")
+        mutableURLRequest.setValue("iOS", forHTTPHeaderField: "X-Client-Platform")
         
         switch self {
         case .Authorize(let parameters):
