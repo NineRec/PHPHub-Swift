@@ -27,6 +27,9 @@ class ApiHandler {
         callback: [T] -> Void)
     {
         Alamofire.request(URLRequest)
+            .responseSwiftyJSON{ response in
+                debugPrint(response.result.value)
+            }
             .responseCollection { (response: Response<[T], NSError>) in
                 switch response.result {
                 case .Success(let value):

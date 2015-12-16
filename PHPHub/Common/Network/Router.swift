@@ -20,7 +20,7 @@ enum Router: URLRequestConvertible {
         switch self {
         case .Authorize:
             return .POST
-        default:
+        case .TopicList:
             return .GET
         }
     }
@@ -30,7 +30,7 @@ enum Router: URLRequestConvertible {
         case .Authorize:
             return "/oauth/access_token"
         case .TopicList:
-            return "/topic"
+            return "/topics"
         }
     }
     
@@ -52,8 +52,8 @@ enum Router: URLRequestConvertible {
         switch self {
         case .Authorize(let parameters):
             return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: parameters).0
-        default:
-            return mutableURLRequest
+        case .TopicList(let parameters):
+            return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: parameters).0
         }
     }
 }

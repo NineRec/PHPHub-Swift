@@ -7,17 +7,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TopicListTableViewController: UITableViewController {
-
-    struct Topic {
-        var title: String?
-        var info: String?
-        var replies: Int?
-        var avatar: UIImage?
-    }
     
     var topicList = [Topic]()
+    var atPage = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,18 +23,15 @@ class TopicListTableViewController: UITableViewController {
         refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
         
         // temp the data
-        let topic1 = Topic(title: "Test", info: "TESTINFO", replies: 12, avatar: UIImage(named: "avatar_placeholder"))
-        let topic2 = Topic(title: "Test", info: "TESTINFO", replies: 12, avatar: UIImage(named: "avatar_placeholder"))
-        let topic3 = Topic(title: "Test", info: "TESTINFO", replies: 12, avatar: UIImage(named: "avatar_placeholder"))
-        
-        topicList.append(topic1)
-        topicList.append(topic2)
-        topicList.append(topic3)
+        TopicApi.getEssentialTopicList(atPage) { topicList in
+            self.topicList  = topicList
+        }
     }
 
     func handleRefresh(refreshControl: UIRefreshControl) {
-        let topic4 = Topic(title: "Test", info: "TESTINFO", replies: 12, avatar: UIImage(named: "avatar_placeholder"))
-        topicList.append(topic4)
+        TopicApi.getEssentialTopicList(atPage) { topicList in
+            self.topicList  = topicList
+        }
         
         tableView.reloadData()
         refreshControl.endRefreshing()
@@ -61,10 +53,10 @@ class TopicListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! TopicListTableViewCell
         
         let topic = topicList[indexPath.row]
-        cell.topicTitleLabel.text = topic.title!
-        cell.topicInfoLabel.text = topic.info!
-        cell.topicRepliesCountLabel.text = String(topic.replies!)
-        cell.avatarImageView.image = topic.avatar
+        cell.topicTitleLabel.text = topic.topicTitle
+        cell.topicInfoLabel.text = "\(topic.node.nodeName) • 最后由 \(topic.lastReplyUser.username) • \(topic.updateAt.timeAgoSinceNow())"
+        cell.topicRepliesCountLabel.text = String(topic.topicRepliesCount)
+        cell.avatarImageView.kf_setImageWithURL(NSURL(string: topic.user.avatar)!)
         return cell
     }
 

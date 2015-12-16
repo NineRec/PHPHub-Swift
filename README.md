@@ -6,7 +6,7 @@ PHPHub 已经有了iOS 客户端，本项目是对现有版本的一个 Swift �
 
 ### 主要任务
 
-- [ ] Initialize the framework
+- [x] Initialize the framework
 - [ ] WebViewController
 - [ ] Apple Push Notification Service
 - [ ] Scan to login

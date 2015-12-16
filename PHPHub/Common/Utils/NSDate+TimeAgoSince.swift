@@ -10,7 +10,7 @@ import Foundation
 
 extension NSDate {
     func timeAgoSinceNow() -> String {
-        return ""
+        return timeAgoSinceDate(self, numericDates: true)
     }
     
     func timeAgoSinceDate(date: NSDate, numericDates: Bool) -> String {
@@ -52,5 +52,21 @@ extension NSDate {
         default:
             return "刚刚"
         }
+    }
+    
+    class func convertFromString(stringData: String) -> NSDate? {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+        
+        let date = dateFormatter.dateFromString(stringData)
+        return date
+    }
+    
+    func convertToString() -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+        
+        let dateString = dateFormatter.stringFromDate(self)
+        return dateString
     }
 }
