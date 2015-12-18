@@ -15,6 +15,8 @@ struct AppConfig {
         }
         static let Client_id = "kHOugsx4dmcXwvVbmLkd"
         static let Client_secret = "PuuFCrF94MloSbSkxpwS"
+        
+        static let TimeoutIntervals = 10
     }
     
     static let KeyChainService = "PHPHubService"

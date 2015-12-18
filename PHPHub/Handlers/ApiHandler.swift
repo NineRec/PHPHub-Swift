@@ -10,8 +10,19 @@ import Alamofire
 import SwiftyJSON
 
 class ApiHandler {
-    class func SwiftyJSONRequest(URLRequest: URLRequestConvertible, callback: JSON -> Void) {
-        Alamofire.request(URLRequest)
+    static let sharedInstance = ApiHandler()
+    
+    private let manager: Alamofire.Manager
+    
+    private init() {
+        let configures = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configures.timeoutIntervalForRequest = Double(AppConfig.Api.TimeoutIntervals)
+        
+        manager = Alamofire.Manager(configuration: configures)
+    }
+    
+    func SwiftyJSONRequest(URLRequest: URLRequestConvertible, callback: JSON -> Void) {
+        manager.request(URLRequest)
             .responseSwiftyJSON { response in
                 switch response.result {
                 case .Success(let value):
@@ -22,21 +33,19 @@ class ApiHandler {
         }
     }
     
-    class func CollectionRequest<T: ResponseCollectionSerializable>(
+    func CollectionRequest<T: ResponseCollectionSerializable>(
         URLRequest: URLRequestConvertible,
-        callback: [T] -> Void)
+        callback: [T] -> Void,
+        failure: NSError -> Void = { debugPrint($0) })
     {
-        Alamofire.request(URLRequest)
-            .responseSwiftyJSON{ response in
-                debugPrint(response.result.value)
-            }
+        manager.request(URLRequest)
             .responseCollection { (response: Response<[T], NSError>) in
                 switch response.result {
                 case .Success(let value):
                     callback(value)
                 case .Failure(let error):
-                    debugPrint(error)
+                    failure(error)
                 }
+            }
         }
-    }
 }

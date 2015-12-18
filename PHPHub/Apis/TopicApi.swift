@@ -10,7 +10,7 @@ import Alamofire
 import SwiftyJSON
 
 class TopicApi {
-    class func getTopicListByFilter(filter: String, atPage: Int, callback: [Topic] -> Void) {
+    class func getTopicListByFilter(filter: String, atPage: Int, callback: [Topic] -> Void){
         let parameters:[String: AnyObject] = [
             "include" : "node,last_reply_user,user",
             "filters": filter,
@@ -19,7 +19,7 @@ class TopicApi {
             "columns": "user(signature)"
         ]
         
-        ApiHandler.CollectionRequest(Router.TopicList(parameters), callback: callback)
+        ApiHandler.sharedInstance.CollectionRequest(Router.TopicList(parameters), callback: callback)
     }
     
     class func getEssentialTopicList(atPage: Int, callback: [Topic] -> Void) {
