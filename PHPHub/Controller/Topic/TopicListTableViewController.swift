@@ -9,10 +9,47 @@
 import UIKit
 import Kingfisher
 
-class TopicListTableViewController: UITableViewController {
+enum Filter {
+    case Essential
+    case Newest
+    case Hotest
+    case Jobs
+    case Wiki
     
-    var topicList = [Topic]()
+    var value: String {
+        switch self {
+        case .Essential:
+            return "excellent"
+        case .Newest:
+            return "newest"
+        case .Hotest:
+            return "vote"
+        case .Jobs:
+            return "jobs"
+        case .Wiki:
+            return "wiki"
+        }
+    }
+}
+
+class TopicListTableViewController: UITableViewController {
+    var topicList = [Topic]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     var atPage = 0
+    var filter: Filter? = nil {
+        didSet {
+            if let newFilter = self.filter {
+                TopicApi.getTopicListByFilter(newFilter.value, atPage: atPage) { topicList in
+                    self.topicList  = topicList
+                    self.atPage += 1
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,20 +58,16 @@ class TopicListTableViewController: UITableViewController {
         
         // pull to refresh
         refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
-        
-        // temp the data
-        TopicApi.getEssentialTopicList(atPage) { topicList in
-            self.topicList  = topicList
-        }
     }
 
     func handleRefresh(refreshControl: UIRefreshControl) {
-        TopicApi.getEssentialTopicList(atPage) { topicList in
-            self.topicList  = topicList
+        if let filter = filter {
+            TopicApi.getTopicListByFilter(filter.value, atPage: atPage) { topicList in
+                self.topicList  = topicList
+                self.atPage += 1
+                refreshControl.endRefreshing()
+            }
         }
-        
-        tableView.reloadData()
-        refreshControl.endRefreshing()
     }
     
     // MARK: - Table view data source
@@ -56,7 +89,7 @@ class TopicListTableViewController: UITableViewController {
         cell.topicTitleLabel.text = topic.topicTitle
         cell.topicInfoLabel.text = "\(topic.node.nodeName) • 最后由 \(topic.lastReplyUser.username) • \(topic.updateAt.timeAgoSinceNow())"
         cell.topicRepliesCountLabel.text = String(topic.topicRepliesCount)
-        cell.avatarImageView.kf_setImageWithURL(NSURL(string: topic.user.avatar)!)
+        cell.avatarImageView.kf_setImageWithURL(NSURL(string: topic.user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
         return cell
     }
 

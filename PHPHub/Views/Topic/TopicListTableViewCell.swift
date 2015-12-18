@@ -18,7 +18,11 @@ class TopicListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
+        // 头像和回复数
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2
+        avatarImageView.clipsToBounds = true
+        
         topicRepliesCountLabel.layer.cornerRadius = topicRepliesCountLabel.frame.height / 2
         topicRepliesCountLabel.clipsToBounds = true
     }

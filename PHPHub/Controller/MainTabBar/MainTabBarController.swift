@@ -19,15 +19,17 @@ class MainTabBarController: UITabBarController {
     }
     
     private func setupTabBarItems() {
-        let essentialVC = UIStoryboard(name: "Topic", bundle: nil).instantiateViewControllerWithIdentifier("TopicList")
-        essentialVC.title = "推荐"
+        let essentialVC = UIStoryboard(name: "Topic", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
+        essentialVC.title = "精华"
+        essentialVC.filter = .Essential
         let essentialNC = UINavigationController(rootViewController: essentialVC)
         essentialNC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "essential_icon"), selectedImage: UIImage(named: "essential_selected_icon"))
         
         let forumVC = ForumViewController()
         forumVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "forum_icon"), selectedImage: UIImage(named: "forum_selected_icon"))
         
-        let wikiVC = UIViewController()
+        let wikiVC = UIStoryboard(name: "Topic", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
+        wikiVC.filter = .Wiki
         wikiVC.title = "社区WIKI"
         let wikiNC = UINavigationController(rootViewController: wikiVC)
         wikiNC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "wiki_icon"), selectedImage: UIImage(named: "wiki_selected_icon"))

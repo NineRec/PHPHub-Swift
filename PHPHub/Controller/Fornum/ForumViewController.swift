@@ -14,8 +14,8 @@ class ForumViewController: UIViewController {
     var pageMenu: CAPSPageMenu?
     var controllerArray: [UIViewController] = []
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         // Customize menu (Optional)
         let parameters: [CAPSPageMenuOption] = [
@@ -30,15 +30,19 @@ class ForumViewController: UIViewController {
             .MenuItemWidth(90.0),
             .CenterMenuItems(true)
         ]
-
-        let oneVC = UIViewController()
-        oneVC.title = "最新"
-        let towVC = UIViewController()
-        towVC.title = "热门"
-        let jobVC = UIViewController()
-        jobVC.title = "招聘"
         
-        controllerArray = [oneVC, towVC, jobVC]
+        let newestVC = UIStoryboard(name: "Topic", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
+        newestVC.title = "最新"
+        newestVC.filter = .Newest
+        let hotestVC = UIStoryboard(name: "Topic", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
+        hotestVC.title = "热门"
+        hotestVC.filter = .Hotest
+        let jobVC = UIStoryboard(name: "Topic", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
+        jobVC.title = "招聘"
+        jobVC.filter = .Jobs
+        
+        
+        controllerArray = [newestVC, hotestVC, jobVC]
         
         // Configure the scroll menu
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 20.0, self.view.frame.width, self.view.frame.height - 20.0), pageMenuOptions: parameters)
