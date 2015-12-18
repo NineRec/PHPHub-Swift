@@ -15,7 +15,7 @@ PHPHub-Swift is the iOS application for PHPHub written with Swift.
 
 ### 当前进度
 
-![推荐](https://raw.githubusercontent.com/nine-rec/PHPHub-Swift/master/ScreenShot/ScreenShot%202015-12-17%2000.19.06.png)
+![推荐](https://raw.githubusercontent.com/nine-rec/PHPHub-Swift/master/ScreenShot/ScreenShot%202015-12-17%2001.16.04.png)
 
 ![论坛](https://raw.githubusercontent.com/nine-rec/PHPHub-Swift/master/ScreenShot/ScreenShot%202015-12-17%2000.20.15.png)
 
