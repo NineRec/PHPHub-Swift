@@ -97,14 +97,16 @@ class TopicListTableViewController: UITableViewController {
         return false
     }
 
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "TopicDetail" {
+            let topicDetail = segue.destinationViewController as! TopicDetailViewController
+            
+            if let selectedTopicCell = sender as? TopicListTableViewCell {
+                let indexPath = tableView.indexPathForCell(selectedTopicCell)!
+                let selectedTopic = topicList[indexPath.row]
+                topicDetail.topic = selectedTopic
+            }
+        }
     }
-    */
-
 }

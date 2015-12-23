@@ -34,10 +34,10 @@ class MainTabBarController: UITabBarController {
         let wikiNC = UINavigationController(rootViewController: wikiVC)
         wikiNC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "wiki_icon"), selectedImage: UIImage(named: "wiki_selected_icon"))
         
-        let meVC = UIViewController()
-        meVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "me_icon"), selectedImage: UIImage(named: "me_selected_icon"))
+        let meNC = UIStoryboard(name: "Me", bundle: nil).instantiateInitialViewController()!
+        meNC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "me_icon"), selectedImage: UIImage(named: "me_selected_icon"))
         
-        let controllers: [UIViewController] = [essentialNC, forumVC, wikiNC, meVC]
+        let controllers: [UIViewController] = [essentialNC, forumVC, wikiNC, meNC]
         setViewControllers(controllers, animated: true)
     }
     
