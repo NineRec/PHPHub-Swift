@@ -278,7 +278,7 @@
                                             <color key="titleColor" red="0.64313725489999995" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="didTouchCommetButton" destination="21D-kQ-dJs" eventType="touchUpInside" id="tmf-qB-xK8"/>
+                                            <action selector="didTouchCommentButton" destination="21D-kQ-dJs" eventType="touchUpInside" id="J1n-r5-yvz"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -335,7 +335,7 @@
                     <connections>
                         <outlet property="authorInfoView" destination="oZA-7Y-Al9" id="lbj-F0-Dpy"/>
                         <outlet property="avatarImageView" destination="jzg-Xh-y8h" id="Tlm-vK-EQO"/>
-                        <outlet property="commetButton" destination="aot-ZS-wEt" id="mQH-Dp-sgh"/>
+                        <outlet property="commentButton" destination="aot-ZS-wEt" id="HxF-2D-6NN"/>
                         <outlet property="contentView" destination="JId-gp-ata" id="Fp0-Ln-MEF"/>
                         <outlet property="progressView" destination="Uj6-FO-XeR" id="qwf-0K-Za4"/>
                         <outlet property="signatureLabel" destination="IR1-Va-5x9" id="3Zj-Y2-xox"/>

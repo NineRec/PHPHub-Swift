@@ -21,10 +21,14 @@ class TopicDetailViewController: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     
     @IBOutlet weak var topicToolBarView: UIView!
-    @IBOutlet weak var commetButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
     
     var webView: WKWebView!
     var topic: Topic?
+    
+    deinit {
+        webView.removeObserver(self, forKeyPath: "estimatedProgress")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,12 +51,6 @@ class TopicDetailViewController: UIViewController {
         webView.frame = contentView.bounds
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        webView.removeObserver(self, forKeyPath: "estimatedProgress")
-    }
-    
     private func updateTopicDetail() {
         if let topic = topic {
             let user = topic.user
@@ -66,7 +64,7 @@ class TopicDetailViewController: UIViewController {
             webView.loadRequest(NSURLRequest(URL: url))
             webView.allowsBackForwardNavigationGestures = true
             
-            commetButton.setTitle(" \(topic.topicRepliesCount)", forState: .Normal)
+            commentButton.setTitle(" \(topic.topicRepliesCount)", forState: .Normal)
         }
     }
     
@@ -82,8 +80,12 @@ class TopicDetailViewController: UIViewController {
         }
     }
     
-    @IBAction func didTouchCommetButton() {
-        
+    @IBAction func didTouchCommentButton() {
+        if let topic = topic {
+            let commentVC = CommentViewController()
+            commentVC.commentUrl = topic.topicRepliesUrl
+            navigationController?.pushViewController(commentVC, animated: true)
+        }
     }
 }
 
