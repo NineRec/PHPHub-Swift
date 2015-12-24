@@ -22,4 +22,6 @@ struct AppConfig {
     static let KeyChainService = "PHPHubService"
     static let KeyChainClientAccount = "com.PHPHub.client"
     static let KeyChainLoginAccount = "com.PHPHub.login"
+    
+    static let LoginGuide = "http://7xnqwn.com1.z0.glb.clouddn.com/index.html"
 }

@@ -4,6 +4,7 @@ PODS:
   - Kingfisher (1.8.2)
   - PageMenu (1.2.8)
   - Reachability (3.2)
+  - SwiftQRCode (2.0.1)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -12,6 +13,7 @@ DEPENDENCIES:
   - Kingfisher (~> 1.8)
   - PageMenu
   - Reachability
+  - SwiftQRCode
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
@@ -29,6 +31,7 @@ SPEC CHECKSUMS:
   Kingfisher: b39315e9dbed7e8ffe73a9ca1be2ee006d1d57e4
   PageMenu: 703e82e173f54a4626ab88fcdca7703ee52e0cbe
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SwiftQRCode: ce939b2f3ceba3a4b89a99c981cba70604e480cf
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

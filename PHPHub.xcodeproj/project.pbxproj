@@ -31,6 +31,10 @@
 		253304851C20636700E3C5F3 /* ApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253304841C20636700E3C5F3 /* ApiHandler.swift */; };
 		2557FECF1C24087800961EF9 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557FECE1C24087800961EF9 /* TopicDetailViewController.swift */; };
 		2557FED31C2A7EC900961EF9 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557FED21C2A7EC900961EF9 /* CommentViewController.swift */; };
+		25B6FF181C2AA02900C16070 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6FF171C2AA02900C16070 /* LoginViewController.swift */; };
+		25B6FF1A1C2AA29800C16070 /* LoginGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6FF191C2AA29800C16070 /* LoginGuideViewController.swift */; };
+		25B6FF1C1C2ACB0300C16070 /* MeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6FF1B1C2ACB0300C16070 /* MeTableViewController.swift */; };
+		25B6FF1E1C2BBE4000C16070 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6FF1D1C2BBE4000C16070 /* QRCodeViewController.swift */; };
 		6DDCE3C0C75815B4239B1EB2 /* Pods_PHPHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1778C7C86A4B30F7DD48137 /* Pods_PHPHub.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +77,10 @@
 		253304841C20636700E3C5F3 /* ApiHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHandler.swift; path = Handlers/ApiHandler.swift; sourceTree = "<group>"; };
 		2557FECE1C24087800961EF9 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
 		2557FED21C2A7EC900961EF9 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentViewController.swift; path = Controller/Topic/CommentViewController.swift; sourceTree = "<group>"; };
+		25B6FF171C2AA02900C16070 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Controller/Me/LoginViewController.swift; sourceTree = "<group>"; };
+		25B6FF191C2AA29800C16070 /* LoginGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginGuideViewController.swift; path = Controller/Me/LoginGuideViewController.swift; sourceTree = "<group>"; };
+		25B6FF1B1C2ACB0300C16070 /* MeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeTableViewController.swift; path = Controller/Me/MeTableViewController.swift; sourceTree = "<group>"; };
+		25B6FF1D1C2BBE4000C16070 /* QRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeViewController.swift; path = Controller/Me/QRCodeViewController.swift; sourceTree = "<group>"; };
 		6787A7C6A353DD2C1941C434 /* Pods-PHPHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PHPHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PHPHub/Pods-PHPHub.debug.xcconfig"; sourceTree = "<group>"; };
 		894CC7717934CE3DAFCF95F7 /* Pods-PHPHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PHPHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-PHPHub/Pods-PHPHub.release.xcconfig"; sourceTree = "<group>"; };
 		B1778C7C86A4B30F7DD48137 /* Pods_PHPHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PHPHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +199,7 @@
 		251E94171C17D5F400894F8C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				25B6FF141C2A9E9300C16070 /* Me */,
 				2533047B1C1FE06A00E3C5F3 /* Essential */,
 				2524FFAA1C19CE3900706D56 /* MainTabBar */,
 				251E941F1C180F8A00894F8C /* Topic */,
@@ -275,6 +284,17 @@
 			children = (
 			);
 			name = Essential;
+			sourceTree = "<group>";
+		};
+		25B6FF141C2A9E9300C16070 /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				25B6FF171C2AA02900C16070 /* LoginViewController.swift */,
+				25B6FF191C2AA29800C16070 /* LoginGuideViewController.swift */,
+				25B6FF1B1C2ACB0300C16070 /* MeTableViewController.swift */,
+				25B6FF1D1C2BBE4000C16070 /* QRCodeViewController.swift */,
+			);
+			name = Me;
 			sourceTree = "<group>";
 		};
 		2EAFB8CA29B5E9826B59510C /* Frameworks */ = {
@@ -450,8 +470,11 @@
 			files = (
 				2533047F1C20461900E3C5F3 /* User.swift in Sources */,
 				253304831C20631300E3C5F3 /* TopicApi.swift in Sources */,
+				25B6FF1E1C2BBE4000C16070 /* QRCodeViewController.swift in Sources */,
+				25B6FF1C1C2ACB0300C16070 /* MeTableViewController.swift in Sources */,
 				251E94311C184FB800894F8C /* AppConfig.swift in Sources */,
 				253304851C20636700E3C5F3 /* ApiHandler.swift in Sources */,
+				25B6FF181C2AA02900C16070 /* LoginViewController.swift in Sources */,
 				2557FECF1C24087800961EF9 /* TopicDetailViewController.swift in Sources */,
 				2533047D1C20079300E3C5F3 /* Topic.swift in Sources */,
 				251E942B1C181D4D00894F8C /* Router.swift in Sources */,
@@ -466,6 +489,7 @@
 				2524FFA61C197E4300706D56 /* NSDate+TimeAgoSince.swift in Sources */,
 				251E941A1C17D64500894F8C /* ForumViewController.swift in Sources */,
 				253304811C20615B00E3C5F3 /* Node.swift in Sources */,
+				25B6FF1A1C2AA29800C16070 /* LoginGuideViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

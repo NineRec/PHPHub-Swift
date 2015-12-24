@@ -43,9 +43,9 @@ class TopicListTableViewController: UITableViewController {
     var filter: Filter? = nil {
         didSet {
             if let newFilter = self.filter {
-                TopicApi.getTopicListByFilter(newFilter.value, atPage: atPage) { topicList in
+                TopicApi.getTopicListByFilter(newFilter.value, atPage: 0) { topicList in
                     self.topicList  = topicList
-                    self.atPage += 1
+                    self.atPage = 1
                 }
             }
         }
@@ -62,10 +62,19 @@ class TopicListTableViewController: UITableViewController {
 
     func handleRefresh(refreshControl: UIRefreshControl) {
         if let filter = filter {
-            TopicApi.getTopicListByFilter(filter.value, atPage: atPage) { topicList in
+            TopicApi.getTopicListByFilter(filter.value, atPage: 0) { topicList in
                 self.topicList  = topicList
-                self.atPage += 1
+                self.atPage = 1
                 refreshControl.endRefreshing()
+            }
+        }
+    }
+    
+    func handleLoadMore() {
+        if let filter = filter {
+            TopicApi.getTopicListByFilter(filter.value, atPage: atPage) { topicList in
+                self.topicList  += topicList
+                self.atPage += 1
             }
         }
     }
@@ -97,6 +106,17 @@ class TopicListTableViewController: UITableViewController {
         return false
     }
 
+    // MARK: - ScrollView
+    
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        // 松开后开始加载更多
+        if scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height + 30){
+            tableView.contentInset = UIEdgeInsetsMake(0, 0, 150, 0)
+            handleLoadMore()
+            tableView.contentInset = UIEdgeInsetsZero
+        }
+    }
+    
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "TopicDetail" {
