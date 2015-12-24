@@ -8,4 +8,5 @@ target 'PHPHub' do
     pod 'KeychainAccess'
     pod 'Reachability'
     pod 'PageMenu'
+    pod 'SwiftQRCode'
 end
