@@ -23,12 +23,20 @@ class ApiHandler {
     
     func SwiftyJSONRequest(URLRequest: URLRequestConvertible, callback: JSON -> Void) {
         manager.request(URLRequest)
+            .validate(statusCode: 200..<300)
             .responseSwiftyJSON { response in
                 switch response.result {
                 case .Success(let value):
                     callback(value)
                 case .Failure(let error):
                     debugPrint(error)
+                    
+                    if let URLResponse = response.response {
+                        if URLResponse.statusCode == 401 {
+                            self.regainClientAccessToken()
+                            self.SwiftyJSONRequest(URLRequest, callback: callback)
+                        }
+                    }
                 }
         }
     }
@@ -39,13 +47,26 @@ class ApiHandler {
         failure: NSError -> Void = { debugPrint($0) })
     {
         manager.request(URLRequest)
+            .validate(statusCode: 200..<300)
             .responseCollection { (response: Response<[T], NSError>) in
                 switch response.result {
                 case .Success(let value):
                     callback(value)
                 case .Failure(let error):
                     failure(error)
+                    
+                    if let URLResponse = response.response {
+                        if URLResponse.statusCode == 401 {
+                            self.regainClientAccessToken()
+                            self.CollectionRequest(URLRequest, callback: callback, failure: failure)
+                        }
+                    }
                 }
             }
-        }
+    }
+    
+    private func regainClientAccessToken() {
+        let accessTokenHandler = AccessTokenHandler()
+        accessTokenHandler.getServerClientAccessToken()
+    }
 }
