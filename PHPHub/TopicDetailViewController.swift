@@ -35,15 +35,14 @@ class TopicDetailViewController: UIViewController {
         
         webView = WKWebView(frame: contentView.bounds)
         contentView.addSubview(webView)
+        // observe the web loading
+        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
 
         // circle the avatar
         avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2
         avatarImageView.clipsToBounds = true
         
         updateTopicDetail()
-
-        // observe the web loading
-        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,8 +71,18 @@ class TopicDetailViewController: UIViewController {
         if let keyPath = keyPath {
             switch keyPath {
             case "estimatedProgress":
-                progressView.hidden = webView.estimatedProgress == 1
                 progressView.setProgress(Float(webView.estimatedProgress), animated: true)
+                if webView.estimatedProgress == 1 {
+                    progressView.hidden = true
+                    let jsString = "var metaTag=document.createElement('meta');" +
+                        "metaTag.name='viewport';metaTag.content ='width=device-width,initial-scale=1.0';" +
+                        "document.getElementsByTagName('head')[0].appendChild(metaTag);"
+                    webView.evaluateJavaScript(jsString, completionHandler: nil)
+                }
+            case "title":
+                if let title = webView.title {
+                    self.title = title
+                }
             default:
                 break
             }
