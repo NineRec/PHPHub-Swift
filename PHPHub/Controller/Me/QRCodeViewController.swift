@@ -16,7 +16,17 @@ class QRCodeViewController: UIViewController {
         super.viewDidLoad()
 
         scanner.prepareScan(view) { stringValue in
-            print(stringValue)
+            let loginInfo = stringValue.characters.split{$0 == ","}.map{String($0)}
+            
+            if loginInfo.count == 2 {
+                let accessTokenHandler = AccessTokenHandler()
+                accessTokenHandler.getServerLoginAccessToken(loginInfo[0], loginToken: loginInfo[1])
+            } else {
+                self.noticeInfo("扫描的二维码不能识别呢", autoClear: true)
+            }
+            
+            self.scanner.stopScan()
+            self.navigationController?.popViewControllerAnimated(true)
         }
         scanner.scanFrame = view.bounds
     }

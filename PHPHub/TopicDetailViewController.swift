@@ -58,9 +58,9 @@ class TopicDetailViewController: UIViewController {
             signatureLabel.text = user.signature
             
             voteButton.setTitle(" \(topic.voteCount)", forState: .Normal)
-            
-            let url = NSURL(string: topic.topicContentUrl)!
-            webView.loadRequest(NSURLRequest(URL: url))
+
+            let request = Router.TopicDetails(topic.topicId).getURLRequest()
+            webView.loadRequest(request)
             webView.allowsBackForwardNavigationGestures = true
             
             commentButton.setTitle(" \(topic.topicRepliesCount)", forState: .Normal)
@@ -92,7 +92,7 @@ class TopicDetailViewController: UIViewController {
     @IBAction func didTouchCommentButton() {
         if let topic = topic {
             let commentVC = CommentViewController()
-            commentVC.commentUrl = topic.topicRepliesUrl
+            commentVC.topic = topic
             navigationController?.pushViewController(commentVC, animated: true)
         }
     }

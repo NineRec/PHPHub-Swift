@@ -41,4 +41,12 @@ class TopicApi {
     class func getWikiTopicList(atPage: Int, callback: [Topic] -> Void) {
         getTopicListByFilter("wiki", atPage: atPage, callback: callback)
     }
+    
+    class func getTopicDetails(topicId: Int, callback: String -> Void) {
+        ApiHandler.sharedInstance.StringRequest(Router.TopicDetails(topicId), callback: callback)
+    }
+    
+    class func getTopicReplies(topicId: Int, callback: String -> Void) {
+        ApiHandler.sharedInstance.StringRequest(Router.TopicDetails(topicId), callback: callback)
+    }
 }

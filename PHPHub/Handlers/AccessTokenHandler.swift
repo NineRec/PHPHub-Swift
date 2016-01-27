@@ -26,8 +26,8 @@ class AccessTokenHandler {
         return keychain[AppConfig.KeyChainLoginAccount]
     }
     
-    func getServerLoginAccessToken() {
-        AuthorizeApi.getLoginAccessToken { json in
+    func getServerLoginAccessToken(username: String, loginToken: String) {
+        AuthorizeApi.getLoginAccessToken(username: username, loginToken: loginToken) { json in
             self.storeLoginAccessToken(json["access_token"].stringValue)
         }
     }

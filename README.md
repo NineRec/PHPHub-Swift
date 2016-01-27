@@ -17,6 +17,12 @@ PHPHub-Swift is the iOS application for PHPHub written with Swift.
 
 ![截屏](https://github.com/nine-rec/PHPHub-Swift/blob/master/ScreenShot/ScreenShot.png?raw=true)
 
+### 登陆二维码
+
+测试环境下扫描二维码登陆（Copyed from phphub-ios）
+
+![](http://ww3.sinaimg.cn/large/76dc7f1bgw1exrg86f5ubj20ml0dsq45.jpg)
+
 ### CocoaPods
 
 * Alamofire => Network

@@ -28,11 +28,13 @@ class AuthorizeApi {
         }
     }
     
-    class func getLoginAccessToken(callback: JSON -> Void) {
+    class func getLoginAccessToken(username username: String, loginToken: String, callback: JSON -> Void) {
         let parameters:[String: AnyObject] = [
             "grant_type" : "client_credentials",
             "client_id": AppConfig.Api.Client_id,
-            "client_secret": AppConfig.Api.Client_secret
+            "client_secret": AppConfig.Api.Client_secret,
+            "username": username,
+            "login_token": loginToken
         ]
         
         Alamofire.request(Router.Authorize(parameters))

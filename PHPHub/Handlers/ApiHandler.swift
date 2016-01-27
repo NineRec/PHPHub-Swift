@@ -65,6 +65,26 @@ class ApiHandler {
             }
     }
     
+    func StringRequest(URLRequest: URLRequestConvertible, callback: String -> Void) {
+        manager.request(URLRequest)
+            .validate(statusCode: 200..<300)
+            .responseString { response in
+                switch response.result {
+                case .Success(let value):
+                    callback(value)
+                case .Failure(let error):
+                    debugPrint(error)
+                    
+                    if let URLResponse = response.response {
+                        if URLResponse.statusCode == 401 {
+                            self.regainClientAccessToken()
+                            self.StringRequest(URLRequest, callback: callback)
+                        }
+                    }
+                }
+        }
+    }
+    
     private func regainClientAccessToken() {
         let accessTokenHandler = AccessTokenHandler()
         accessTokenHandler.getServerClientAccessToken()

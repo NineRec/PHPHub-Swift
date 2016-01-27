@@ -11,11 +11,7 @@ import WebKit
 
 class CommentViewController: UIViewController {
     var webView: WKWebView?
-    var commentUrl: String? {
-        didSet {
-            loadURLContent()
-        }
-    }
+    var topic: Topic?
     
     override func loadView() {
         super.loadView()
@@ -28,13 +24,10 @@ class CommentViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "评论列表"
-        loadURLContent()
-    }
-    
-    private func loadURLContent() {
-        if let stringURL = commentUrl, let webView = webView {
-            let url = NSURL(string: stringURL)!
-            webView.loadRequest(NSURLRequest(URL: url))
+        
+        if let topic = topic, let webView = webView {
+            let request = Router.TopicReplies(topic.topicId).getURLRequest()
+            webView.loadRequest(request)
             webView.allowsBackForwardNavigationGestures = true
         }
     }
