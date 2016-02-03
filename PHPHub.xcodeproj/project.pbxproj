@@ -28,6 +28,7 @@
 		253304851C20636700E3C5F3 /* ApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253304841C20636700E3C5F3 /* ApiHandler.swift */; };
 		2557FECF1C24087800961EF9 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557FECE1C24087800961EF9 /* TopicDetailViewController.swift */; };
 		2557FED31C2A7EC900961EF9 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557FED21C2A7EC900961EF9 /* CommentViewController.swift */; };
+		25B37E6A1C61E414003241E1 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B37E691C61E414003241E1 /* UserProfileViewController.swift */; };
 		25B6FF181C2AA02900C16070 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6FF171C2AA02900C16070 /* LoginViewController.swift */; };
 		25B6FF1A1C2AA29800C16070 /* LoginGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6FF191C2AA29800C16070 /* LoginGuideViewController.swift */; };
 		25B6FF1C1C2ACB0300C16070 /* MeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6FF1B1C2ACB0300C16070 /* MeTableViewController.swift */; };
@@ -75,6 +76,7 @@
 		253304841C20636700E3C5F3 /* ApiHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHandler.swift; path = Handlers/ApiHandler.swift; sourceTree = "<group>"; };
 		2557FECE1C24087800961EF9 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
 		2557FED21C2A7EC900961EF9 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentViewController.swift; path = Controller/Topic/CommentViewController.swift; sourceTree = "<group>"; };
+		25B37E691C61E414003241E1 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileViewController.swift; path = Controller/Me/UserProfileViewController.swift; sourceTree = "<group>"; };
 		25B6FF171C2AA02900C16070 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Controller/Me/LoginViewController.swift; sourceTree = "<group>"; };
 		25B6FF191C2AA29800C16070 /* LoginGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginGuideViewController.swift; path = Controller/Me/LoginGuideViewController.swift; sourceTree = "<group>"; };
 		25B6FF1B1C2ACB0300C16070 /* MeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeTableViewController.swift; path = Controller/Me/MeTableViewController.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				25B6FF191C2AA29800C16070 /* LoginGuideViewController.swift */,
 				25B6FF1B1C2ACB0300C16070 /* MeTableViewController.swift */,
 				25B6FF1D1C2BBE4000C16070 /* QRCodeViewController.swift */,
+				25B37E691C61E414003241E1 /* UserProfileViewController.swift */,
 			);
 			name = Me;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				253304771C1D97ED00E3C5F3 /* AuthorizeApi.swift in Sources */,
 				2557FED31C2A7EC900961EF9 /* CommentViewController.swift in Sources */,
 				251E94211C180FB600894F8C /* TopicListTableViewController.swift in Sources */,
+				25B37E6A1C61E414003241E1 /* UserProfileViewController.swift in Sources */,
 				2524FFA61C197E4300706D56 /* NSDate+TimeAgoSince.swift in Sources */,
 				251E941A1C17D64500894F8C /* ForumViewController.swift in Sources */,
 				253304811C20615B00E3C5F3 /* Node.swift in Sources */,

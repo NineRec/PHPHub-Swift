@@ -37,6 +37,33 @@ class MeTableViewController: UITableViewController {
         self.user = CurrentUserHandler.defaultHandler.user
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        let section = indexPath.section
+//        let row = indexPath.row
+//        
+//        var nextVC: UIViewController
+//        
+//        if section == 0 && row == 0 {
+//            
+//        } else if section == 1 {
+//            
+//        } else if section == 2 {
+//            
+//        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "ShowProfile":
+                let userProfileVC = segue.destinationViewController as! UserProfileViewController
+                userProfileVC.user = self.user
+            default:
+                break
+            }
+        }
+    }
+    
     private func setupCornerView(view: UIView) {
         view.layer.cornerRadius = view.frame.height / 2
         view.layer.masksToBounds = true

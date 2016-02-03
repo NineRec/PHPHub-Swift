@@ -43,8 +43,8 @@ final class User: ResponseObjectSerializable{
         githubURL = jsonData["github_url"].stringValue
         realName = jsonData["real_name"].stringValue
         blogURL = jsonData["personal_website"].stringValue
-        createdAtDate = jsonData["crete_at"].stringValue
-        updatedAtDate = jsonData["update_at"].stringValue
+        createdAtDate = jsonData["created_at"].stringValue
+        updatedAtDate = jsonData["updated_at"].stringValue
     }
 }
 
