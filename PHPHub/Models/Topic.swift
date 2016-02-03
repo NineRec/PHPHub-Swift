@@ -38,7 +38,7 @@ final class Topic: ResponseObjectSerializable, ResponseCollectionSerializable {
     static func collection(jsonData jsonData: JSON) -> [Topic] {
         var topics: [Topic] = []
         
-        for (_, subJson) in jsonData["data"] {
+        for (_, subJson) in jsonData {
             if let topic = Topic(jsonData: subJson) {
                 topics.append(topic)
             }

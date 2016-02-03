@@ -7,37 +7,38 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MeTableViewController: UITableViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        performSegueWithIdentifier("ShowLogin", sender: self)
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
-    // MARK: - Segue
+    // MARK: - Properties
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var userIntroLabel: UILabel!
+    @IBOutlet weak var unreadCountLabel: UILabel!
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case "ShowLogin":
-                let loginVC = segue.destinationViewController as! LoginViewController
-                loginVC.navigationItem.hidesBackButton = true
-            default:
-                break
+    var user: User? {
+        didSet {
+            if let user = user {
+                self.avatarImageView.kf_setImageWithURL(
+                    NSURL(string: user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
+                self.usernameLabel.text = user.username
+                self.userIntroLabel.text = user.signature
             }
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupCornerView(unreadCountLabel)
+        setupCornerView(avatarImageView)
+        
+        self.user = CurrentUserHandler.defaultHandler.user
+    }
+    
+    private func setupCornerView(view: UIView) {
+        view.layer.cornerRadius = view.frame.height / 2
+        view.layer.masksToBounds = true
     }
 }

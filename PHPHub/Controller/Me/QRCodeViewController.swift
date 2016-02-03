@@ -11,6 +11,7 @@ import SwiftQRCode
 
 class QRCodeViewController: UIViewController {
     lazy var scanner = QRCode()
+    var completion: ((success: Bool) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +20,8 @@ class QRCodeViewController: UIViewController {
             let loginInfo = stringValue.characters.split{$0 == ","}.map{String($0)}
             
             if loginInfo.count == 2 {
-                let accessTokenHandler = AccessTokenHandler()
-                accessTokenHandler.getServerLoginAccessToken(loginInfo[0], loginToken: loginInfo[1])
+                CurrentUserHandler.defaultHandler.login(username: loginInfo[0], loginToken: loginInfo[1], callback: self.completion!)
+                debugPrint("QRCodeViewController")
             } else {
                 self.noticeInfo("扫描的二维码不能识别呢", autoClear: true)
             }

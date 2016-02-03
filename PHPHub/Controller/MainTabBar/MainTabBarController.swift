@@ -9,44 +9,53 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        setupTabBarItems()
-        
+        self.setupTabBarItems()
         self.delegate = self
     }
     
     private func setupTabBarItems() {
-        let essentialVC = UIStoryboard(name: "Topic", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
+        let essentialNC = self.viewControllers![0] as! UINavigationController
+        let essentialVC = essentialNC.topViewController! as! TopicListTableViewController
         essentialVC.title = "精华"
         essentialVC.filter = .Essential
-        let essentialNC = UINavigationController(rootViewController: essentialVC)
-        essentialNC.tabBarItem = UITabBarItem(title: "精华", image: UIImage(named: "essential_icon"), selectedImage: UIImage(named: "essential_selected_icon"))
         
-        let forumVC = ForumViewController()
-        forumVC.tabBarItem = UITabBarItem(title: "论坛", image: UIImage(named: "forum_icon"), selectedImage: UIImage(named: "forum_selected_icon"))
-        
-        let wikiVC = UIStoryboard(name: "Topic", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
-        wikiVC.filter = .Wiki
+        let wikiNC = self.viewControllers![2] as! UINavigationController
+        let wikiVC = wikiNC.topViewController! as! TopicListTableViewController
         wikiVC.title = "社区WIKI"
-        let wikiNC = UINavigationController(rootViewController: wikiVC)
-        wikiNC.tabBarItem = UITabBarItem(title: "WIKI", image: UIImage(named: "wiki_icon"), selectedImage: UIImage(named: "wiki_selected_icon"))
-        
-        let meNC = UIStoryboard(name: "Me", bundle: nil).instantiateInitialViewController()!
-        meNC.tabBarItem = UITabBarItem(title: "我", image: UIImage(named: "me_icon"), selectedImage: UIImage(named: "me_selected_icon"))
-        
-        let controllers: [UIViewController] = [essentialNC, forumVC, wikiNC, meNC]
-        setViewControllers(controllers, animated: true)
-    }
-    
-    // MARK: - Navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+        wikiVC.filter = .Wiki
     }
 }
 
 extension MainTabBarController: UITabBarControllerDelegate {
-    
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+        guard !CurrentUserHandler.defaultHandler.isLoggedIn else {
+            return true
+        }
+        
+        let visibleController: UIViewController
+        
+        if let navigationController = viewController as? UINavigationController {
+            visibleController = navigationController.topViewController ?? viewController
+        } else {
+            visibleController = viewController
+        }
+        
+        let shouldPresentSignInScreen = AppConfig.viewControllerClassesThatRequireLogin.contains { $0 == visibleController.dynamicType }
+        
+        if shouldPresentSignInScreen {
+            LoginViewController.presentLoginViewController() { success in
+                if success {
+                    CurrentUserHandler.defaultHandler.refreshUserInfo()
+                    self.selectedViewController = viewController
+                }
+            }
+            
+            return false
+        }
+        
+        return true
+    }
 }

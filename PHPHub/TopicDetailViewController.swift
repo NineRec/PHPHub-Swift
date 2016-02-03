@@ -59,7 +59,7 @@ class TopicDetailViewController: UIViewController {
             
             voteButton.setTitle(" \(topic.voteCount)", forState: .Normal)
 
-            let request = Router.TopicDetails(topic.topicId).getURLRequest()
+            let request = Router.TopicDetails(topic.topicId).URLRequest
             webView.loadRequest(request)
             webView.allowsBackForwardNavigationGestures = true
             

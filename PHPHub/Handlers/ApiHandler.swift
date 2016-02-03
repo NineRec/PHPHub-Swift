@@ -21,6 +21,26 @@ class ApiHandler {
         manager = Alamofire.Manager(configuration: configures)
     }
     
+    func StringRequest(URLRequest: URLRequestConvertible, callback: String -> Void) {
+        manager.request(URLRequest)
+            .validate(statusCode: 200..<300)
+            .responseString { response in
+                switch response.result {
+                case .Success(let value):
+                    callback(value)
+                case .Failure(let error):
+                    debugPrint(error)
+                    
+                    if let URLResponse = response.response {
+                        if URLResponse.statusCode == 401 {
+                            self.regainClientAccessToken()
+                            self.StringRequest(URLRequest, callback: callback)
+                        }
+                    }
+                }
+        }
+    }
+    
     func SwiftyJSONRequest(URLRequest: URLRequestConvertible, callback: JSON -> Void) {
         manager.request(URLRequest)
             .validate(statusCode: 200..<300)
@@ -65,24 +85,22 @@ class ApiHandler {
             }
     }
     
-    func StringRequest(URLRequest: URLRequestConvertible, callback: String -> Void) {
+    func ObjectRequest<T: ResponseObjectSerializable>(
+        URLRequest: URLRequestConvertible,
+        callback: T -> Void,
+        failure: NSError -> Void = { debugPrint($0) })
+    {
         manager.request(URLRequest)
             .validate(statusCode: 200..<300)
-            .responseString { response in
+            .responseObject { (response: Response<T, NSError>) in
                 switch response.result {
                 case .Success(let value):
                     callback(value)
                 case .Failure(let error):
                     debugPrint(error)
-                    
-                    if let URLResponse = response.response {
-                        if URLResponse.statusCode == 401 {
-                            self.regainClientAccessToken()
-                            self.StringRequest(URLRequest, callback: callback)
-                        }
-                    }
+                    failure(error)
                 }
-        }
+            }
     }
     
     private func regainClientAccessToken() {

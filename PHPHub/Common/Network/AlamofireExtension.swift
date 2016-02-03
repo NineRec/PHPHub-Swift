@@ -29,7 +29,7 @@ extension Alamofire.Request {
             switch result {
             case .Success(let value):
                 if let
-                    responseObject = T(jsonData: value)
+                    responseObject = T(jsonData: value["data"])
                 {
                     return .Success(responseObject)
                 } else {
@@ -55,7 +55,7 @@ extension Alamofire.Request {
             switch result {
             case .Success(let value):
                 if let _ = response {
-                    return .Success(T.collection(jsonData: value))
+                    return .Success(T.collection(jsonData: value["data"]))
                 } else {
                     let failureReason = "Response collection could not be serialized due to nil response"
                     let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)

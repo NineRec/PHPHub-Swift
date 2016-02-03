@@ -26,7 +26,7 @@ class CommentViewController: UIViewController {
         navigationItem.title = "评论列表"
         
         if let topic = topic, let webView = webView {
-            let request = Router.TopicReplies(topic.topicId).getURLRequest()
+            let request = Router.TopicReplies(topic.topicId).URLRequest
             webView.loadRequest(request)
             webView.allowsBackForwardNavigationGestures = true
         }
