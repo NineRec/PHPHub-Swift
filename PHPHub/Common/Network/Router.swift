@@ -18,6 +18,10 @@ enum Router: URLRequestConvertible {
     case TopicDetails(Int)
     case TopicReplies(Int)
     case CurrentUser
+    case UpdateUser(Int, [String: AnyObject])
+    case UserTopiclist(Int, [String: AnyObject])
+    case UserAttentionTopiclist(Int, [String: AnyObject])
+    case UserFavoriteTopiclist(Int, [String: AnyObject])
     
     var method: Alamofire.Method {
         switch self {
@@ -25,6 +29,8 @@ enum Router: URLRequestConvertible {
             return .POST
         case .TopicList:
             return .GET
+        case .UpdateUser:
+            return .PUT
         default:
             return .GET
         }
@@ -42,6 +48,14 @@ enum Router: URLRequestConvertible {
             return "/topics/\(topicId)/replies/web_view"
         case .CurrentUser:
             return "/me"
+        case .UpdateUser(let userId, _):
+            return "/users/\(userId)"
+        case .UserTopiclist(let userId, _):
+            return "/user/\(userId)/topics"
+        case .UserAttentionTopiclist(let userId, _):
+            return "/user/\(userId)/attention/topics"
+        case .UserFavoriteTopiclist(let userId, _):
+            return "/user/\(userId)/favorite/topics"
         }
     }
     
@@ -53,8 +67,16 @@ enum Router: URLRequestConvertible {
             return Alamofire.ParameterEncoding.URL.encode(getClientRequest(), parameters: parameters).0
         case .TopicList(let parameters):
             return Alamofire.ParameterEncoding.URL.encode(getClientRequest(), parameters: parameters).0
+        case .UserTopiclist(_, let parameters):
+            return Alamofire.ParameterEncoding.URL.encode(getLoginRequest(), parameters: parameters).0
+        case .UserAttentionTopiclist(_, let parameters):
+            return Alamofire.ParameterEncoding.URL.encode(getLoginRequest(), parameters: parameters).0
+        case .UserFavoriteTopiclist(_, let parameters):
+            return Alamofire.ParameterEncoding.URL.encode(getLoginRequest(), parameters: parameters).0
         case .CurrentUser:
             return Alamofire.ParameterEncoding.URL.encode(getLoginRequest(), parameters: nil).0
+        case .UpdateUser(_, let parameters):
+            return Alamofire.ParameterEncoding.URL.encode(getLoginRequest(), parameters: parameters).0
         default:
             return Alamofire.ParameterEncoding.URL.encode(getClientRequest(), parameters: nil).0
         }
@@ -84,7 +106,6 @@ enum Router: URLRequestConvertible {
         // Set the Header
         let accessTokenHandler = AccessTokenHandler()
         if let token =  accessTokenHandler.getLocalLoginAccessToken() {
-            debugPrint(token)
             mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         mutableURLRequest.setValue("application/vnd.PHPHub.v1+json", forHTTPHeaderField: "Accept")

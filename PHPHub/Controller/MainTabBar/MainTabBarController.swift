@@ -20,12 +20,12 @@ class MainTabBarController: UITabBarController {
         let essentialNC = self.viewControllers![0] as! UINavigationController
         let essentialVC = essentialNC.topViewController! as! TopicListTableViewController
         essentialVC.title = "精华"
-        essentialVC.filter = .Essential
+        essentialVC.topicListApi = .Essential
         
         let wikiNC = self.viewControllers![2] as! UINavigationController
         let wikiVC = wikiNC.topViewController! as! TopicListTableViewController
         wikiVC.title = "社区WIKI"
-        wikiVC.filter = .Wiki
+        wikiVC.topicListApi = .Wiki
     }
 }
 

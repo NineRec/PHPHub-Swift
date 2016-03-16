@@ -9,87 +9,50 @@
 import UIKit
 
 class EditUserProfileViewController: UITableViewController {
-
+    
+    @IBOutlet weak var realNameTextFiled: UITextField!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var twitterTextField: UITextField!
+    @IBOutlet weak var githubTextField: UITextField!
+    @IBOutlet weak var blogTextField: UITextField!
+    @IBOutlet weak var userIntroTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    
+        self.loadCurrentUserInfo();
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func updateUserInfo(sender: UIBarButtonItem) {
+        updateCurrentUserInfo()
+        navigationController?.popViewControllerAnimated(true)
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    private func loadCurrentUserInfo() {
+        if let user = CurrentUserHandler.defaultHandler.user {
+            realNameTextFiled.text = user.realName
+            cityTextField.text = user.city
+            twitterTextField.text = user.twitterAccount
+            githubTextField.text = user.githubName
+            blogTextField.text = user.blogURL
+            userIntroTextView.text = user.signature
+        }
     }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    private func updateCurrentUserInfo() {
+        let parameters = [
+            "real_name": realNameTextFiled.text!,
+            "city": cityTextField.text!,
+            "twitter_account": twitterTextField.text!,
+            "github_url": githubTextField.text!,
+            "personal_website": blogTextField.text!,
+            "signature": userIntroTextView.text!
+        ]
+        
+        self.pleaseWait()
+        CurrentUserHandler.defaultHandler.updateUserInfo(parameters) { user in
+            self.clearAllNotice()
+            self.loadCurrentUserInfo()
+        }
     }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

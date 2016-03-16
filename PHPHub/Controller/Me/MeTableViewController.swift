@@ -55,9 +55,32 @@ class MeTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case "ShowProfile":
+            case "ShowUserProfile":
                 let userProfileVC = segue.destinationViewController as! UserProfileViewController
                 userProfileVC.user = self.user
+                userProfileVC.title = "个人信息"
+                userProfileVC.hidesBottomBarWhenPushed = true
+            case "ShowAttention":
+                let attentionVC = segue.destinationViewController as! TopicListTableViewController
+                if let user = CurrentUserHandler.defaultHandler.user {
+                    attentionVC.topicListApi = .Attention(user.userId)
+                    attentionVC.title = "我的关注"
+                    attentionVC.hidesBottomBarWhenPushed = true
+                }
+            case "ShowFavorite":
+                let favoriteVC = segue.destinationViewController as! TopicListTableViewController
+                if let user = CurrentUserHandler.defaultHandler.user {
+                    favoriteVC.topicListApi = .Favorite(user.userId)
+                    favoriteVC.title = "我的收藏"
+                    favoriteVC.hidesBottomBarWhenPushed = true
+                }
+            case "ShowUser":
+                let userPublicedVC = segue.destinationViewController as! TopicListTableViewController
+                if let user = CurrentUserHandler.defaultHandler.user {
+                    userPublicedVC.topicListApi = .User(user.userId)
+                    userPublicedVC.title = "我的帖子"
+                    userPublicedVC.hidesBottomBarWhenPushed = true
+                }
             default:
                 break
             }

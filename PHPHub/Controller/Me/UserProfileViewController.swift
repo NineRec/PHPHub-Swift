@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class UserProfileViewController: UITableViewController {
     
@@ -19,6 +20,10 @@ class UserProfileViewController: UITableViewController {
     @IBOutlet weak var twitterLabel: UILabel!
     @IBOutlet weak var blogLabel: UILabel!
     @IBOutlet weak var createAtLabel: UILabel!
+    
+    @IBOutlet weak var topicCountLabel: UILabel!
+    @IBOutlet weak var repliesCountLablel: UILabel!
+    
     
     var user: User?
     
@@ -36,15 +41,84 @@ class UserProfileViewController: UITableViewController {
             self.twitterLabel.text = user.twitterAccount
             self.blogLabel.text = user.blogURL
             self.createAtLabel.text = user.createdAtDate
+            
+            self.topicCountLabel.text = String(user.topicCount)
+            self.repliesCountLablel.text = String(user.replyCount)
+            
+            if let currentUser = CurrentUserHandler.defaultHandler.user {
+                if currentUser.userId == user.userId {
+                    let editProfileImage = UIImage(named: "edit_profile_icon")
+                    let rightBarButtonItem = UIBarButtonItem(image: editProfileImage, style: .Plain, target: self, action: Selector("showEditUserProfile"))
+                    navigationController?.navigationItem.rightBarButtonItem = rightBarButtonItem
+                }
+            }
         }
         
         setupCornerView(self.avatarImageView)
     }
+    
+    // MARK: - Delegate TableView
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let user = self.user {
+            let section = indexPath.section
+            
+            switch section {
+            case 3 where !user.githubURL.isEmpty :
+                jumpToWebView(user.githubURL)
+            case 4 where !user.twitterAccount.isEmpty:
+                jumpToWebView(AppConfig.TwitterUrl + user.twitterAccount)
+            case 5 where !user.blogURL.isEmpty :
+                jumpToWebView(user.blogURL)
+            default:
+                return
+            }
+        }
+    }
 
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let identifier = segue.identifier, let user = self.user {
+            switch identifier {
+            case "ShowAttention":
+                let attentionVC = segue.destinationViewController as! TopicListTableViewController
+                attentionVC.topicListApi = .Attention(user.userId)
+                attentionVC.hidesBottomBarWhenPushed = true
+                
+                if let currentUser = CurrentUserHandler.defaultHandler.user where currentUser.userId == user.userId {
+                    attentionVC.title = "我的关注"
+                } else {
+                    attentionVC.title = "TA的关注"
+                }
+            case "ShowFavorite":
+                let favoriteVC = segue.destinationViewController as! TopicListTableViewController
+                favoriteVC.topicListApi = .Favorite(user.userId)
+                favoriteVC.hidesBottomBarWhenPushed = true
+                
+                if let currentUser = CurrentUserHandler.defaultHandler.user where currentUser.userId == user.userId {
+                    favoriteVC.title = "我的收藏"
+                } else {
+                    favoriteVC.title = "TA的收藏"
+                }
+            case "ShowUser":
+                let userPublicedVC = segue.destinationViewController as! TopicListTableViewController
+                userPublicedVC.topicListApi = .User(user.userId)
+                userPublicedVC.hidesBottomBarWhenPushed = true
+                    
+                if let currentUser = CurrentUserHandler.defaultHandler.user where currentUser.userId == user.userId {
+                    userPublicedVC.title = "我的帖子"
+                } else {
+                    userPublicedVC.title = "TA的帖子"
+                }
+            default:
+                break
+            }
+        }
+
+    }
+    
+    func jumpToWebView(urlString: String) {
+        let safariViewController = SFSafariViewController(URL: NSURL(string: urlString)!)
+        self.presentViewController(safariViewController, animated: true, completion: nil)
     }
     
     private func setupCornerView(view: UIView) {

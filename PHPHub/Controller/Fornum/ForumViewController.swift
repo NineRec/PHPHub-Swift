@@ -36,13 +36,13 @@ class ForumViewController: UIViewController {
         
         let newestVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
         newestVC.title = "最新"
-        newestVC.filter = .Newest
+        newestVC.topicListApi = .Newest
         let hotestVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
         hotestVC.title = "热门"
-        hotestVC.filter = .Hotest
+        hotestVC.topicListApi = .Hotest
         let jobVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
         jobVC.title = "招聘"
-        jobVC.filter = .Jobs
+        jobVC.topicListApi = .Jobs
         
         
         controllerArray = [newestVC, hotestVC, jobVC]

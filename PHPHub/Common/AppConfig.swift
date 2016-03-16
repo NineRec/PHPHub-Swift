@@ -27,4 +27,6 @@ struct AppConfig {
 //    static let keychainExpire = "com.PHPHub.expire"
     
     static let LoginGuide = "http://7xnqwn.com1.z0.glb.clouddn.com/index.html"
+    static let TwitterUrl = "https://twitter.com/"
+    static let GithubURL = "https://github.com/"
 }

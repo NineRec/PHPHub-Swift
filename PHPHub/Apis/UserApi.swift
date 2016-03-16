@@ -13,6 +13,10 @@ class UserApi {
     class func getCurrentUser(callback: User -> Void) {
         ApiHandler.sharedInstance.ObjectRequest(Router.CurrentUser, callback: callback)
     }
+    
+    class func updateCurrentUser(userId: Int, parameters:[String: AnyObject], callback: User -> Void) {
+        ApiHandler.sharedInstance.ObjectRequest(Router.UpdateUser(userId, parameters), callback: callback)
+    }
 }
 
 

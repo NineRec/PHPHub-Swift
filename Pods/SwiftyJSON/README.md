@@ -77,7 +77,7 @@ if let userName = json[999999]["wrong_key"]["wrong_name"].string {
 
 ## Requirements
 
-- iOS 7.0+ / Mac OS X 10.9+
+- iOS 7.0+ / OS X 10.9+
 - Xcode 7
 
 ##Integration
@@ -114,7 +114,7 @@ let package = Package(
 )
 ```
 
-Note that the [Swift Package Manager](https://swift.org/package-manager) is still in early design and development, for more infomation checkout it's [GitHub Page](https://github.com/apple/swift-package-manager)
+Note that the [Swift Package Manager](https://swift.org/package-manager) is still in early design and development, for more infomation checkout its [GitHub Page](https://github.com/apple/swift-package-manager)
 
 ####Manually (iOS 7+, OS X 10.9+)
 

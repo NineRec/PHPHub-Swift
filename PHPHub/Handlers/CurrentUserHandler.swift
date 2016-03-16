@@ -51,8 +51,16 @@ class CurrentUserHandler {
     
     func refreshUserInfo() {
         UserApi.getCurrentUser{ user in
-            debugPrint(user.username)
             self.user = user
+        }
+    }
+    
+    func updateUserInfo(parameters: [String: AnyObject], callback: User -> Void) {
+        if let user = self.user {
+            UserApi.updateCurrentUser(user.userId, parameters: parameters) { user in
+                self.user = user
+                callback(user)
+            }
         }
     }
 }

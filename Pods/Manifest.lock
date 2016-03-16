@@ -4,6 +4,7 @@ PODS:
   - Kingfisher (1.8.2)
   - PageMenu (1.2.8)
   - Reachability (3.2)
+  - SwiftForms (1.0.2)
   - SwiftQRCode (2.0.1)
   - SwiftyJSON (2.3.2)
 
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - Kingfisher (~> 1.8)
   - PageMenu
   - Reachability
+  - SwiftForms
   - SwiftQRCode
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -22,7 +24,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftyJSON:
-    :commit: 8e618c8baf6323a5079c6549bb38d48357b31630
+    :commit: 42bdb102d2624b143c07850ebdc1537d5b6579b6
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
@@ -31,6 +33,7 @@ SPEC CHECKSUMS:
   Kingfisher: b39315e9dbed7e8ffe73a9ca1be2ee006d1d57e4
   PageMenu: 703e82e173f54a4626ab88fcdca7703ee52e0cbe
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SwiftForms: c439aca9cf462383a1292c028bd14915de42bf6b
   SwiftQRCode: ce939b2f3ceba3a4b89a99c981cba70604e480cf
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 

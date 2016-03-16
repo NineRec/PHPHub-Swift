@@ -89,6 +89,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-PHPHub/Kingfisher.framework"
   install_framework "Pods-PHPHub/PageMenu.framework"
   install_framework "Pods-PHPHub/Reachability.framework"
+  install_framework "Pods-PHPHub/SwiftForms.framework"
   install_framework "Pods-PHPHub/SwiftQRCode.framework"
   install_framework "Pods-PHPHub/SwiftyJSON.framework"
 fi
@@ -98,6 +99,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-PHPHub/Kingfisher.framework"
   install_framework "Pods-PHPHub/PageMenu.framework"
   install_framework "Pods-PHPHub/Reachability.framework"
+  install_framework "Pods-PHPHub/SwiftForms.framework"
   install_framework "Pods-PHPHub/SwiftQRCode.framework"
   install_framework "Pods-PHPHub/SwiftyJSON.framework"
 fi
