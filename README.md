@@ -1,5 +1,7 @@
 # PHPHub-Swift
 
+**notice:** MBP 已经在路上了……
+
 PHPHub 已经有了iOS 客户端，本项目是对现有版本的一个 Swift 复刻。
 
 其主要目的是锻炼自己的 Swift 技能。
