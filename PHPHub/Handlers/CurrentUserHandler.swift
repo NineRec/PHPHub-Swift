@@ -13,9 +13,9 @@ class CurrentUserHandler {
     static var defaultHandler: CurrentUserHandler!
     var user: User?
     
-    private let keychain = Keychain(service: AppConfig.KeyChainService)
+    fileprivate let keychain = Keychain(service: AppConfig.KeyChainService)
     
-    static func setDefaultHandler(defaultHandler: CurrentUserHandler) {
+    static func setDefaultHandler(_ defaultHandler: CurrentUserHandler) {
         self.defaultHandler = defaultHandler
     }
     
@@ -32,7 +32,7 @@ class CurrentUserHandler {
         refreshUserInfo()
     }
     
-    func login(username username: String, loginToken: String, callback: Bool -> Void) {
+    func login(username: String, loginToken: String, callback: @escaping (Bool) -> Void) {
         AuthorizeApi.getLoginAccessToken(username: username, loginToken: loginToken) { json in
             debugPrint(json.rawString())
             if let loginToken = json["access_token"].string {
@@ -55,7 +55,7 @@ class CurrentUserHandler {
         }
     }
     
-    func updateUserInfo(parameters: [String: AnyObject], callback: User -> Void) {
+    func updateUserInfo(_ parameters: [String: AnyObject], callback: @escaping (User) -> Void) {
         if let user = self.user {
             UserApi.updateCurrentUser(user.userId, parameters: parameters) { user in
                 self.user = user

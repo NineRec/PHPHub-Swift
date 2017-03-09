@@ -15,54 +15,54 @@ public protocol ResponseObjectSerializable {
 }
 
 public protocol ResponseCollectionSerializable {
-    static func collection(jsonData jsonData: JSON) -> [Self]
+    static func collection(jsonData: JSON) -> [Self]
 }
 
 extension Alamofire.Request {
-    public func responseObject<T: ResponseObjectSerializable>(completionHandler: Response<T, NSError> -> Void) -> Self {
+    public func responseObject<T: ResponseObjectSerializable>(_ completionHandler: (Response<T, NSError>) -> Void) -> Self {
         let responseSerializer = ResponseSerializer<T, NSError> { request, response, data, error in
-            guard error == nil else { return .Failure(error!) }
+            guard error == nil else { return .failure(error!) }
             
             let JSONResponseSerializer = Request.SwiftyJSONResponseSerializer()
             let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
             
             switch result {
-            case .Success(let value):
+            case .success(let value):
                 if let
                     responseObject = T(jsonData: value["data"])
                 {
-                    return .Success(responseObject)
+                    return .success(responseObject)
                 } else {
                     let failureReason = "JSON could not be serialized into response object: \(value)"
-                    let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                    return .Failure(error)
+                    let error = Alamofire.Error.errorWithCode(.jsonSerializationFailed, failureReason: failureReason)
+                    return .failure(error)
                 }
-            case .Failure(let error):
-                return .Failure(error)
+            case .failure(let error):
+                return .failure(error)
             }
         }
         
         return response(responseSerializer: responseSerializer, completionHandler: completionHandler)
     }
     
-    public func responseCollection<T: ResponseCollectionSerializable>(completionHandler: Response<[T], NSError> -> Void) -> Self {
+    public func responseCollection<T: ResponseCollectionSerializable>(_ completionHandler: (Response<[T], NSError>) -> Void) -> Self {
         let responseSerializer = ResponseSerializer<[T], NSError> { request, response, data, error in
-            guard error == nil else { return .Failure(error!) }
+            guard error == nil else { return .failure(error!) }
             
             let JSONSerializer = Request.SwiftyJSONResponseSerializer()
             let result = JSONSerializer.serializeResponse(request, response, data, error)
             
             switch result {
-            case .Success(let value):
+            case .success(let value):
                 if let _ = response {
-                    return .Success(T.collection(jsonData: value["data"]))
+                    return .success(T.collection(jsonData: value["data"]))
                 } else {
                     let failureReason = "Response collection could not be serialized due to nil response"
-                    let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                    return .Failure(error)
+                    let error = Alamofire.Error.errorWithCode(.jsonSerializationFailed, failureReason: failureReason)
+                    return .failure(error)
                 }
-            case .Failure(let error):
-                return .Failure(error)
+            case .failure(let error):
+                return .failure(error)
             }
         }
         
@@ -73,22 +73,22 @@ extension Alamofire.Request {
 extension Alamofire.Request {
     public static func SwiftyJSONResponseSerializer() -> ResponseSerializer<JSON, NSError> {
         return ResponseSerializer { request, response, data, error in
-            guard error == nil else { return .Failure(error!) }
+            guard error == nil else { return .failure(error!) }
             
-            let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
+            let JSONResponseSerializer = Request.JSONResponseSerializer(options: .allowFragments)
             let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
             
             switch result {
-            case .Success(let value):
+            case .success(let value):
                 let json = JSON(value)
-                return .Success(json)
-            case .Failure(let error):
-                return .Failure(error)
+                return .success(json)
+            case .failure(let error):
+                return .failure(error)
             }
         }
     }
     
-    public func responseSwiftyJSON(completionHandler: Response<JSON, NSError> -> Void) -> Self {
+    public func responseSwiftyJSON(_ completionHandler: (Response<JSON, NSError>) -> Void) -> Self {
         return response(responseSerializer: Request.SwiftyJSONResponseSerializer(), completionHandler: completionHandler)
     }
 }

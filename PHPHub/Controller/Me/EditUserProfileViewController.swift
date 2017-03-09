@@ -23,12 +23,12 @@ class EditUserProfileViewController: UITableViewController {
         self.loadCurrentUserInfo();
     }
     
-    @IBAction func updateUserInfo(sender: UIBarButtonItem) {
+    @IBAction func updateUserInfo(_ sender: UIBarButtonItem) {
         updateCurrentUserInfo()
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
     
-    private func loadCurrentUserInfo() {
+    fileprivate func loadCurrentUserInfo() {
         if let user = CurrentUserHandler.defaultHandler.user {
             realNameTextFiled.text = user.realName
             cityTextField.text = user.city
@@ -39,7 +39,7 @@ class EditUserProfileViewController: UITableViewController {
         }
     }
     
-    private func updateCurrentUserInfo() {
+    fileprivate func updateCurrentUserInfo() {
         let parameters = [
             "real_name": realNameTextFiled.text!,
             "city": cityTextField.text!,

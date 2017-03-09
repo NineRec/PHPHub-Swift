@@ -22,47 +22,47 @@ class ForumViewController: UIViewController {
         
         // Customize menu (Optional)
         let parameters: [CAPSPageMenuOption] = [
-            .ScrollMenuBackgroundColor(UIColor.whiteColor()),
-            .ViewBackgroundColor(UIColor(red: 240/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1.0)),
-            .SelectionIndicatorColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
-            .BottomMenuHairlineColor(UIColor(red: 20.0/255.0, green: 20.0/255.0, blue: 20.0/255.0, alpha: 0.1)),
-            .SelectedMenuItemLabelColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
-            .UnselectedMenuItemLabelColor(UIColor(red: 40.0/255.0, green: 40.0/255.0, blue: 40.0/255.0, alpha: 1.0)),
-            .MenuItemFont(UIFont(name: "HelveticaNeue", size: 13.0)!),
-            .MenuHeight(44.0),
-            .MenuItemWidth(90.0),
-            .CenterMenuItems(true)
+            .scrollMenuBackgroundColor(UIColor.white),
+            .viewBackgroundColor(UIColor(red: 240/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1.0)),
+            .selectionIndicatorColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
+            .bottomMenuHairlineColor(UIColor(red: 20.0/255.0, green: 20.0/255.0, blue: 20.0/255.0, alpha: 0.1)),
+            .selectedMenuItemLabelColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
+            .unselectedMenuItemLabelColor(UIColor(red: 40.0/255.0, green: 40.0/255.0, blue: 40.0/255.0, alpha: 1.0)),
+            .menuItemFont(UIFont(name: "HelveticaNeue", size: 13.0)!),
+            .menuHeight(44.0),
+            .menuItemWidth(90.0),
+            .centerMenuItems(true)
         ]
         
-        let newestVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
+        let newestVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TopicList") as! TopicListTableViewController
         newestVC.title = "最新"
-        newestVC.topicListApi = .Newest
-        let hotestVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
+        newestVC.topicListApi = .newest
+        let hotestVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TopicList") as! TopicListTableViewController
         hotestVC.title = "热门"
-        hotestVC.topicListApi = .Hotest
-        let jobVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TopicList") as! TopicListTableViewController
+        hotestVC.topicListApi = .hotest
+        let jobVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TopicList") as! TopicListTableViewController
         jobVC.title = "招聘"
-        jobVC.topicListApi = .Jobs
+        jobVC.topicListApi = .jobs
         
         
         controllerArray = [newestVC, hotestVC, jobVC]
         
         // Configure the scroll menu
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 20.0, self.view.frame.width, self.view.frame.height - 20.0), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: 20.0, width: self.view.frame.width, height: self.view.frame.height - 20.0), pageMenuOptions: parameters)
         pageMenu!.delegate = self
         
         self.addChildViewController(pageMenu!)
         self.view.addSubview(pageMenu!.view)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         // hide navigation bar
         navigationController?.setNavigationBarHidden(true, animated: animated)
         
         super.viewWillAppear(animated)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: animated)
         
         super.viewWillDisappear(animated)
@@ -70,11 +70,11 @@ class ForumViewController: UIViewController {
 }
 
 extension ForumViewController: CAPSPageMenuDelegate {
-    func willMoveToPage(controller: UIViewController, index: Int) {
+    func willMoveToPage(_ controller: UIViewController, index: Int) {
         return
     }
     
-    func didMoveToPage(controller: UIViewController, index: Int) {
+    func didMoveToPage(_ controller: UIViewController, index: Int) {
         return
     }
 }

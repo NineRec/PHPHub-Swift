@@ -21,7 +21,7 @@ class MeTableViewController: UITableViewController {
         didSet {
             if let user = user {
                 self.avatarImageView.kf_setImageWithURL(
-                    NSURL(string: user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
+                    URL(string: user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
                 self.usernameLabel.text = user.username
                 self.userIntroLabel.text = user.signature
             }
@@ -37,7 +37,7 @@ class MeTableViewController: UITableViewController {
         self.user = CurrentUserHandler.defaultHandler.user
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let section = indexPath.section
 //        let row = indexPath.row
 //        
@@ -52,32 +52,32 @@ class MeTableViewController: UITableViewController {
 //        }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case "ShowUserProfile":
-                let userProfileVC = segue.destinationViewController as! UserProfileViewController
+                let userProfileVC = segue.destination as! UserProfileViewController
                 userProfileVC.user = self.user
                 userProfileVC.title = "个人信息"
                 userProfileVC.hidesBottomBarWhenPushed = true
             case "ShowAttention":
-                let attentionVC = segue.destinationViewController as! TopicListTableViewController
+                let attentionVC = segue.destination as! TopicListTableViewController
                 if let user = CurrentUserHandler.defaultHandler.user {
-                    attentionVC.topicListApi = .Attention(user.userId)
+                    attentionVC.topicListApi = .attention(user.userId)
                     attentionVC.title = "我的关注"
                     attentionVC.hidesBottomBarWhenPushed = true
                 }
             case "ShowFavorite":
-                let favoriteVC = segue.destinationViewController as! TopicListTableViewController
+                let favoriteVC = segue.destination as! TopicListTableViewController
                 if let user = CurrentUserHandler.defaultHandler.user {
-                    favoriteVC.topicListApi = .Favorite(user.userId)
+                    favoriteVC.topicListApi = .favorite(user.userId)
                     favoriteVC.title = "我的收藏"
                     favoriteVC.hidesBottomBarWhenPushed = true
                 }
             case "ShowUser":
-                let userPublicedVC = segue.destinationViewController as! TopicListTableViewController
+                let userPublicedVC = segue.destination as! TopicListTableViewController
                 if let user = CurrentUserHandler.defaultHandler.user {
-                    userPublicedVC.topicListApi = .User(user.userId)
+                    userPublicedVC.topicListApi = .user(user.userId)
                     userPublicedVC.title = "我的帖子"
                     userPublicedVC.hidesBottomBarWhenPushed = true
                 }
@@ -87,7 +87,7 @@ class MeTableViewController: UITableViewController {
         }
     }
     
-    private func setupCornerView(view: UIView) {
+    fileprivate func setupCornerView(_ view: UIView) {
         view.layer.cornerRadius = view.frame.height / 2
         view.layer.masksToBounds = true
     }

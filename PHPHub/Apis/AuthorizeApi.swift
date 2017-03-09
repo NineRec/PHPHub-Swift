@@ -10,57 +10,57 @@ import Alamofire
 import SwiftyJSON
 
 class AuthorizeApi {
-    class func getClientAccessToken(callback: JSON -> Void) {
+    class func getClientAccessToken(_ callback: (JSON) -> Void) {
         let parameters:[String: AnyObject] = [
-            "grant_type" : "client_credentials",
-            "client_id": AppConfig.Api.Client_id,
-            "client_secret": AppConfig.Api.Client_secret
+            "grant_type" : "client_credentials" as AnyObject,
+            "client_id": AppConfig.Api.Client_id as AnyObject,
+            "client_secret": AppConfig.Api.Client_secret as AnyObject
         ]
         
-        Alamofire.request(Router.Authorize(parameters))
+        Alamofire.request(Router.authorize(parameters))
             .responseSwiftyJSON { response in
                 switch response.result {
-                case .Success(let value):
+                case .success(let value):
                     callback(value)
-                case .Failure(let error):
+                case .failure(let error):
                     debugPrint(error)
                 }
         }
     }
     
-    class func getLoginAccessToken(username username: String, loginToken: String, callback: JSON -> Void) {
+    class func getLoginAccessToken(username: String, loginToken: String, callback: (JSON) -> Void) {
         let parameters:[String: AnyObject] = [
-            "grant_type" : "login_token",
-            "client_id": AppConfig.Api.Client_id,
-            "client_secret": AppConfig.Api.Client_secret,
-            "username": username,
-            "login_token": loginToken
+            "grant_type" : "login_token" as AnyObject,
+            "client_id": AppConfig.Api.Client_id as AnyObject,
+            "client_secret": AppConfig.Api.Client_secret as AnyObject,
+            "username": username as AnyObject,
+            "login_token": loginToken as AnyObject
         ]
         
-        Alamofire.request(Router.Authorize(parameters))
+        Alamofire.request(Router.authorize(parameters))
             .responseSwiftyJSON { response in
                 switch response.result {
-                case .Success(let value):
+                case .success(let value):
                     callback(value)
-                case .Failure(let error):
+                case .failure(let error):
                     debugPrint(error)
                 }
         }
     }
     
-    class func refreshLoginAccessToken(callback: JSON -> Void) {
+    class func refreshLoginAccessToken(_ callback: (JSON) -> Void) {
         let parameters:[String: AnyObject] = [
-            "grant_type" : "refresh_token",
-            "client_id": AppConfig.Api.Client_id,
-            "client_secret": AppConfig.Api.Client_secret
+            "grant_type" : "refresh_token" as AnyObject,
+            "client_id": AppConfig.Api.Client_id as AnyObject,
+            "client_secret": AppConfig.Api.Client_secret as AnyObject
         ]
         
-        Alamofire.request(Router.Authorize(parameters))
+        Alamofire.request(Router.authorize(parameters))
             .responseSwiftyJSON { response in
                 switch response.result {
-                case .Success(let value):
+                case .success(let value):
                     callback(value)
-                case .Failure(let error):
+                case .failure(let error):
                     debugPrint(error)
                 }
         }

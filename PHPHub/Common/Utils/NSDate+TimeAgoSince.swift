@@ -8,64 +8,64 @@
 
 import Foundation
 
-extension NSDate {
+extension Date {
     func timeAgoSinceNow() -> String {
         return timeAgoSinceDate(self, numericDates: true)
     }
     
-    func timeAgoSinceDate(date: NSDate, numericDates: Bool) -> String {
+    func timeAgoSinceDate(_ date: Date, numericDates: Bool) -> String {
         
-        let calendar = NSCalendar.currentCalendar()
-        let unitFlags: NSCalendarUnit = [ .Year, .Month, .WeekOfYear, .Day, .Hour, .Minute, .Second ]
-        let now = NSDate()
-        let earliest = now.earlierDate(date)
+        let calendar = Calendar.current
+        let unitFlags: NSCalendar.Unit = [ .year, .month, .weekOfYear, .day, .hour, .minute, .second ]
+        let now = Date()
+        let earliest = (now as NSDate).earlierDate(date)
         let latest = earliest == now ? date : now
-        let components = calendar.components(unitFlags, fromDate: earliest, toDate: latest, options: [])
+        let components = (calendar as NSCalendar).components(unitFlags, from: earliest, to: latest, options: [])
         
-        if components.year >= 2{
+        if components.year! >= 2{
             return "\(components.year)年前"
-        } else if components.year >= 1 {
+        } else if components.year! >= 1 {
             return numericDates ? "1年前" : "去年"
-        } else if components.month >= 2{
+        } else if components.month! >= 2{
             return "\(components.month)月前"
-        } else if components.month >= 1 {
+        } else if components.month! >= 1 {
             return numericDates ? "1月前" : "上个月"
-        } else if components.weekOfYear >= 2 {
+        } else if components.weekOfYear! >= 2 {
             return "\(components.weekOfYear)周前"
-        } else if components.weekOfYear >= 1 {
+        } else if components.weekOfYear! >= 1 {
             return numericDates ? "1周前" : "上周"
-        } else if components.day >= 2 {
+        } else if components.day! >= 2 {
             return "\(components.day)天前"
-        } else if components.day >= 1 {
+        } else if components.day! >= 1 {
             return numericDates ? "1天前" : "昨天"
-        } else if components.hour >= 2 {
+        } else if components.hour! >= 2 {
             return "\(components.hour)小时前"
-        } else if components.hour >= 1 {
+        } else if components.hour! >= 1 {
             return numericDates ? "1小时前" : "一小时前"
-        } else if components.minute >= 2 {
+        } else if components.minute! >= 2 {
             return "\(components.minute)分钟前"
-        } else if components.minute >= 1 {
+        } else if components.minute! >= 1 {
             return numericDates ? "1分钟前" : "一分钟前"
-        } else if components.second >= 3 {
+        } else if components.second! >= 3 {
             return "\(components.second)秒前"
         }
         
         return "刚刚"
     }
     
-    class func convertFromString(stringData: String) -> NSDate? {
-        let dateFormatter = NSDateFormatter()
+    static func convertFromString(_ stringData: String) -> Date? {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
         
-        let date = dateFormatter.dateFromString(stringData)
+        let date = dateFormatter.date(from: stringData)
         return date
     }
     
     func convertToString() -> String {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
         
-        let dateString = dateFormatter.stringFromDate(self)
+        let dateString = dateFormatter.string(from: self)
         return dateString
     }
 }

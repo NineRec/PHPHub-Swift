@@ -35,10 +35,10 @@ class TopicListTableViewController: UITableViewController {
         self.clearsSelectionOnViewWillAppear = true
         
         // pull to refresh
-        refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(TopicListTableViewController.handleRefresh(_:)), for: UIControlEvents.valueChanged)
     }
 
-    func handleRefresh(refreshControl: UIRefreshControl) {
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
         if let topicListApi = self.topicListApi {
             self.atPage = 1
             topicListApi.getTopicListAtPage(self.atPage) { topicList in
@@ -59,44 +59,44 @@ class TopicListTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return topicList.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "TopicListCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! TopicListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TopicListTableViewCell
         
-        let topic = topicList[indexPath.row]
+        let topic = topicList[(indexPath as NSIndexPath).row]
         cell.topicTitleLabel.text = topic.topicTitle
         cell.topicInfoLabel.text = "\(topic.node.nodeName) • 最后由 \(topic.lastReplyUser.username) • \(topic.updateAt.timeAgoSinceNow())"
         cell.topicRepliesCountLabel.text = String(topic.topicRepliesCount)
-        cell.avatarImageView.kf_setImageWithURL(NSURL(string: topic.user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
+        cell.avatarImageView.kf_setImageWithURL(URL(string: topic.user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
         
-        if indexPath.row == topicList.count - 5 {
+        if (indexPath as NSIndexPath).row == topicList.count - 5 {
             handleLoadMore()
         }
         
         return cell
     }
 
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
     // MARK: - Navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TopicDetail" {
-            let topicDetail = segue.destinationViewController as! TopicDetailViewController
+            let topicDetail = segue.destination as! TopicDetailViewController
             
             if let selectedTopicCell = sender as? TopicListTableViewCell {
-                let indexPath = tableView.indexPathForCell(selectedTopicCell)!
-                let selectedTopic = topicList[indexPath.row]
+                let indexPath = tableView.indexPath(for: selectedTopicCell)!
+                let selectedTopic = topicList[(indexPath as NSIndexPath).row]
                 topicDetail.topic = selectedTopic
             }
         }

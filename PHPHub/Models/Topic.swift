@@ -19,7 +19,7 @@ final class Topic: ResponseObjectSerializable, ResponseCollectionSerializable {
     let node: Node
     let topicContentUrl: String
     let topicRepliesUrl: String
-    let updateAt: NSDate
+    let updateAt: Date
     
     init?(jsonData: JSON) {
         topicId = jsonData["id"].intValue
@@ -28,14 +28,14 @@ final class Topic: ResponseObjectSerializable, ResponseCollectionSerializable {
         voteCount = jsonData["vote_count"].intValue
         topicContentUrl = jsonData["links"]["details_web_view"].stringValue
         topicRepliesUrl = jsonData["links"]["replies_web_view"].stringValue
-        updateAt = NSDate.convertFromString(jsonData["updated_at"].stringValue)!
+        updateAt = Date.convertFromString(jsonData["updated_at"].stringValue)!
         
         node = Node(jsonData: jsonData["node"]["data"])!
         user = User(jsonData: jsonData["user"]["data"])!
         lastReplyUser = User(jsonData: jsonData["last_reply_user"]["data"])!
     }
     
-    static func collection(jsonData jsonData: JSON) -> [Topic] {
+    static func collection(jsonData: JSON) -> [Topic] {
         var topics: [Topic] = []
         
         for (_, subJson) in jsonData {

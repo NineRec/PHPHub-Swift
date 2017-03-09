@@ -10,12 +10,12 @@ import Alamofire
 import SwiftyJSON
 
 class UserApi {
-    class func getCurrentUser(callback: User -> Void) {
-        ApiHandler.sharedInstance.ObjectRequest(Router.CurrentUser, callback: callback)
+    class func getCurrentUser(_ callback: (User) -> Void) {
+        ApiHandler.sharedInstance.ObjectRequest(Router.currentUser, callback: callback)
     }
     
-    class func updateCurrentUser(userId: Int, parameters:[String: AnyObject], callback: User -> Void) {
-        ApiHandler.sharedInstance.ObjectRequest(Router.UpdateUser(userId, parameters), callback: callback)
+    class func updateCurrentUser(_ userId: Int, parameters:[String: AnyObject], callback: (User) -> Void) {
+        ApiHandler.sharedInstance.ObjectRequest(Router.updateUser(userId, parameters), callback: callback)
     }
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return self.window!.rootViewController as! UITabBarController
     }
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         CurrentUserHandler.setDefaultHandler(CurrentUserHandler())
         return true

@@ -12,23 +12,23 @@ import SwiftyJSON
 class ApiHandler {
     static let sharedInstance = ApiHandler()
     
-    private let manager: Alamofire.Manager
+    fileprivate let manager: Alamofire.Manager
     
-    private init() {
-        let configures = NSURLSessionConfiguration.defaultSessionConfiguration()
+    fileprivate init() {
+        let configures = URLSessionConfiguration.default
         configures.timeoutIntervalForRequest = Double(AppConfig.Api.TimeoutIntervals)
         
         manager = Alamofire.Manager(configuration: configures)
     }
     
-    func StringRequest(URLRequest: URLRequestConvertible, callback: String -> Void) {
+    func StringRequest(_ URLRequest: URLRequestConvertible, callback: @escaping (String) -> Void) {
         manager.request(URLRequest)
             .validate(statusCode: 200..<300)
             .responseString { response in
                 switch response.result {
-                case .Success(let value):
+                case .success(let value):
                     callback(value)
-                case .Failure(let error):
+                case .failure(let error):
                     debugPrint(error)
                     
                     if let URLResponse = response.response {
@@ -41,14 +41,14 @@ class ApiHandler {
         }
     }
     
-    func SwiftyJSONRequest(URLRequest: URLRequestConvertible, callback: JSON -> Void) {
+    func SwiftyJSONRequest(_ URLRequest: URLRequestConvertible, callback: (JSON) -> Void) {
         manager.request(URLRequest)
             .validate(statusCode: 200..<300)
             .responseSwiftyJSON { response in
                 switch response.result {
-                case .Success(let value):
+                case .success(let value):
                     callback(value)
-                case .Failure(let error):
+                case .failure(let error):
                     debugPrint(error)
                     
                     if let URLResponse = response.response {
@@ -62,17 +62,17 @@ class ApiHandler {
     }
     
     func CollectionRequest<T: ResponseCollectionSerializable>(
-        URLRequest: URLRequestConvertible,
-        callback: [T] -> Void,
-        failure: NSError -> Void = { debugPrint($0) })
+        _ URLRequest: URLRequestConvertible,
+        callback: @escaping ([T]) -> Void,
+        failure: (NSError) -> Void = { debugPrint($0) })
     {
         manager.request(URLRequest)
             .validate(statusCode: 200..<300)
             .responseCollection { (response: Response<[T], NSError>) in
                 switch response.result {
-                case .Success(let value):
+                case .success(let value):
                     callback(value)
-                case .Failure(let error):
+                case .failure(let error):
                     failure(error)
                     
                     if let URLResponse = response.response {
@@ -86,24 +86,24 @@ class ApiHandler {
     }
     
     func ObjectRequest<T: ResponseObjectSerializable>(
-        URLRequest: URLRequestConvertible,
-        callback: T -> Void,
-        failure: NSError -> Void = { debugPrint($0) })
+        _ URLRequest: URLRequestConvertible,
+        callback: @escaping (T) -> Void,
+        failure: (NSError) -> Void = { debugPrint($0) })
     {
         manager.request(URLRequest)
             .validate(statusCode: 200..<300)
             .responseObject { (response: Response<T, NSError>) in
                 switch response.result {
-                case .Success(let value):
+                case .success(let value):
                     callback(value)
-                case .Failure(let error):
+                case .failure(let error):
                     debugPrint(error)
                     failure(error)
                 }
             }
     }
     
-    private func regainClientAccessToken() {
+    fileprivate func regainClientAccessToken() {
         let accessTokenHandler = AccessTokenHandler()
         accessTokenHandler.getServerClientAccessToken()
     }

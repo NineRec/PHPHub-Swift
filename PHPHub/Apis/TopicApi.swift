@@ -10,97 +10,97 @@ import Alamofire
 import SwiftyJSON
 
 enum TopicListApi {
-    case Essential
-    case Newest
-    case Hotest
-    case Jobs
-    case Wiki
-    case User(Int)   // 用户发布的帖子
-    case Attention(Int) // 关注
-    case Favorite(Int) // 收藏
+    case essential
+    case newest
+    case hotest
+    case jobs
+    case wiki
+    case user(Int)   // 用户发布的帖子
+    case attention(Int) // 关注
+    case favorite(Int) // 收藏
     
     var filter: String? {
         switch self {
-        case .Essential:
+        case .essential:
             return "excellent"
-        case .Newest:
+        case .newest:
             return "newest"
-        case .Hotest:
+        case .hotest:
             return "vote"
-        case .Jobs:
+        case .jobs:
             return "jobs"
-        case .Wiki:
+        case .wiki:
             return "wiki"
         default:
             return nil
         }
     }
     
-    func getTopicListAtPage(atPage:Int, callback: [Topic] -> Void) {
+    func getTopicListAtPage(_ atPage:Int, callback: @escaping ([Topic]) -> Void) {
         var parameters:[String: AnyObject] = [
-            "include" : "node,last_reply_user,user",
-            "per_page": 20,
-            "page": atPage,
-            "columns": "user(signature)"
+            "include" : "node,last_reply_user,user" as AnyObject,
+            "per_page": 20 as AnyObject,
+            "page": atPage as AnyObject,
+            "columns": "user(signature)" as AnyObject
         ]
 
         switch self {
-        case .Essential, .Newest, .Hotest, .Jobs, .Wiki:
-            parameters["filters"] = self.filter!
-            ApiHandler.sharedInstance.CollectionRequest(Router.TopicList(parameters), callback: callback)
-        case .User(let userId):
-            ApiHandler.sharedInstance.CollectionRequest(Router.UserTopiclist(userId, parameters), callback: callback)
-        case .Attention(let userId):
-            ApiHandler.sharedInstance.CollectionRequest(Router.UserAttentionTopiclist(userId, parameters), callback: callback)
-        case .Favorite(let userId):
-            ApiHandler.sharedInstance.CollectionRequest(Router.UserFavoriteTopiclist(userId, parameters), callback: callback)
+        case .essential, .newest, .hotest, .jobs, .wiki:
+            parameters["filters"] = self.filter! as AnyObject?
+            ApiHandler.sharedInstance.CollectionRequest(Router.topicList(parameters), callback: callback)
+        case .user(let userId):
+            ApiHandler.sharedInstance.CollectionRequest(Router.userTopiclist(userId, parameters), callback: callback)
+        case .attention(let userId):
+            ApiHandler.sharedInstance.CollectionRequest(Router.userAttentionTopiclist(userId, parameters), callback: callback)
+        case .favorite(let userId):
+            ApiHandler.sharedInstance.CollectionRequest(Router.userFavoriteTopiclist(userId, parameters), callback: callback)
         }
     }
 }
 
 
 class TopicApi {
-    class func getTopicListByFilter(filter: String, atPage: Int, callback: [Topic] -> Void){
+    class func getTopicListByFilter(_ filter: String, atPage: Int, callback: @escaping ([Topic]) -> Void){
         let parameters:[String: AnyObject] = [
-            "include" : "node,last_reply_user,user",
-            "filters": filter,
-            "per_page": 20,
-            "page": atPage,
-            "columns": "user(signature)"
+            "include" : "node,last_reply_user,user" as AnyObject,
+            "filters": filter as AnyObject,
+            "per_page": 20 as AnyObject,
+            "page": atPage as AnyObject,
+            "columns": "user(signature)" as AnyObject
         ]
         
-        ApiHandler.sharedInstance.CollectionRequest(Router.TopicList(parameters), callback: callback)
+        ApiHandler.sharedInstance.CollectionRequest(Router.topicList(parameters), callback: callback)
     }
     
-    class func getEssentialTopicList(atPage: Int, callback: [Topic] -> Void) {
+    class func getEssentialTopicList(_ atPage: Int, callback: @escaping ([Topic]) -> Void) {
         getTopicListByFilter("excellent", atPage: atPage, callback: callback)
     }
     
-    class func getNewestTopicList(atPage: Int, callback: [Topic] -> Void) {
+    class func getNewestTopicList(_ atPage: Int, callback: @escaping ([Topic]) -> Void) {
         getTopicListByFilter("newest", atPage: atPage, callback: callback)
     }
     
-    class func getHotestTopicList(atPage: Int, callback: [Topic] -> Void) {
+    class func getHotestTopicList(_ atPage: Int, callback: @escaping ([Topic]) -> Void) {
         getTopicListByFilter("vot", atPage: atPage, callback: callback)
     }
     
-    class func getJobTopicList(atPage: Int, callback: [Topic] -> Void) {
+    class func getJobTopicList(_ atPage: Int, callback: @escaping ([Topic]) -> Void) {
         getTopicListByFilter("jobs", atPage: atPage, callback: callback)
     }
     
-    class func getWikiTopicList(atPage: Int, callback: [Topic] -> Void) {
+    class func getWikiTopicList(_ atPage: Int, callback: @escaping ([Topic]) -> Void) {
         getTopicListByFilter("wiki", atPage: atPage, callback: callback)
     }
     
-    class func getTopicDetails(topicId: Int, callback: String -> Void) {
-        ApiHandler.sharedInstance.StringRequest(Router.TopicDetails(topicId), callback: callback)
+    class func getTopicDetails(_ topicId: Int, callback: @escaping (String) -> Void) {
+        ApiHandler.sharedInstance.StringRequest(Router.topicDetails(topicId), callback: callback)
     }
     
-    class func getTopicReplies(topicId: Int, callback: String -> Void) {
-        ApiHandler.sharedInstance.StringRequest(Router.TopicDetails(topicId), callback: callback)
+    class func getTopicReplies(_ topicId: Int, callback: @escaping (String) -> Void) {
+        ApiHandler.sharedInstance.StringRequest(Router.topicDetails(topicId), callback: callback)
     }
     
-    class func getAttentionTopicListByUser(userId: Int, atPage: Int, callback: [Topic] -> Void) {
+    class func getAttentionTopicListByUser(_ userId: Int, atPage: Int, callback: @escaping ([Topic]) -> Void) {
         getTopicListByFilter("attention", atPage: atPage, callback: callback)
     }
 }

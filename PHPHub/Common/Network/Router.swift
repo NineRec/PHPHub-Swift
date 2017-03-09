@@ -10,26 +10,35 @@ import Alamofire
 import KeychainAccess
 
 enum Router: URLRequestConvertible {
+    /// Returns a URL request or throws if an `Error` was encountered.
+    ///
+    /// - throws: An `Error` if the underlying `URLRequest` is `nil`.
+    ///
+    /// - returns: A URL request.
+    public func asURLRequest() throws -> URLRequest {
+        
+    }
+
     static var AccessToken: String?
     
     // ImV2 API
-    case Authorize([String: AnyObject])
-    case TopicList([String: AnyObject])
-    case TopicDetails(Int)
-    case TopicReplies(Int)
-    case CurrentUser
-    case UpdateUser(Int, [String: AnyObject])
-    case UserTopiclist(Int, [String: AnyObject])
-    case UserAttentionTopiclist(Int, [String: AnyObject])
-    case UserFavoriteTopiclist(Int, [String: AnyObject])
+    case authorize([String: AnyObject])
+    case topicList([String: AnyObject])
+    case topicDetails(Int)
+    case topicReplies(Int)
+    case currentUser
+    case updateUser(Int, [String: AnyObject])
+    case userTopiclist(Int, [String: AnyObject])
+    case userAttentionTopiclist(Int, [String: AnyObject])
+    case userFavoriteTopiclist(Int, [String: AnyObject])
     
     var method: Alamofire.Method {
         switch self {
-        case .Authorize:
+        case .authorize:
             return .POST
-        case .TopicList:
+        case .topicList:
             return .GET
-        case .UpdateUser:
+        case .updateUser:
             return .PUT
         default:
             return .GET
@@ -38,23 +47,23 @@ enum Router: URLRequestConvertible {
     
     var path: String {
         switch self {
-        case .Authorize:
+        case .authorize:
             return "/oauth/access_token"
-        case .TopicList:
+        case .topicList:
             return "/topics"
-        case .TopicDetails(let topicId):
+        case .topicDetails(let topicId):
             return "/topics/\(topicId)/web_view"
-        case .TopicReplies(let topicId):
+        case .topicReplies(let topicId):
             return "/topics/\(topicId)/replies/web_view"
-        case .CurrentUser:
+        case .currentUser:
             return "/me"
-        case .UpdateUser(let userId, _):
+        case .updateUser(let userId, _):
             return "/users/\(userId)"
-        case .UserTopiclist(let userId, _):
+        case .userTopiclist(let userId, _):
             return "/user/\(userId)/topics"
-        case .UserAttentionTopiclist(let userId, _):
+        case .userAttentionTopiclist(let userId, _):
             return "/user/\(userId)/attention/topics"
-        case .UserFavoriteTopiclist(let userId, _):
+        case .userFavoriteTopiclist(let userId, _):
             return "/user/\(userId)/favorite/topics"
         }
     }
@@ -63,29 +72,29 @@ enum Router: URLRequestConvertible {
     
     var URLRequest: NSMutableURLRequest {
         switch self {
-        case .Authorize(let parameters):
-            return Alamofire.ParameterEncoding.URL.encode(getClientRequest(), parameters: parameters).0
-        case .TopicList(let parameters):
-            return Alamofire.ParameterEncoding.URL.encode(getClientRequest(), parameters: parameters).0
-        case .UserTopiclist(_, let parameters):
-            return Alamofire.ParameterEncoding.URL.encode(getLoginRequest(), parameters: parameters).0
-        case .UserAttentionTopiclist(_, let parameters):
-            return Alamofire.ParameterEncoding.URL.encode(getLoginRequest(), parameters: parameters).0
-        case .UserFavoriteTopiclist(_, let parameters):
-            return Alamofire.ParameterEncoding.URL.encode(getLoginRequest(), parameters: parameters).0
-        case .CurrentUser:
-            return Alamofire.ParameterEncoding.URL.encode(getLoginRequest(), parameters: nil).0
-        case .UpdateUser(_, let parameters):
-            return Alamofire.ParameterEncoding.URL.encode(getLoginRequest(), parameters: parameters).0
+        case .authorize(let parameters):
+            return Alamofire.ParameterEncoding.url.encode(getClientRequest(), parameters: parameters).0
+        case .topicList(let parameters):
+            return Alamofire.ParameterEncoding.url.encode(getClientRequest(), parameters: parameters).0
+        case .userTopiclist(_, let parameters):
+            return Alamofire.ParameterEncoding.url.encode(getLoginRequest(), parameters: parameters).0
+        case .userAttentionTopiclist(_, let parameters):
+            return Alamofire.ParameterEncoding.url.encode(getLoginRequest(), parameters: parameters).0
+        case .userFavoriteTopiclist(_, let parameters):
+            return Alamofire.ParameterEncoding.url.encode(getLoginRequest(), parameters: parameters).0
+        case .currentUser:
+            return Alamofire.ParameterEncoding.url.encode(getLoginRequest(), parameters: nil).0
+        case .updateUser(_, let parameters):
+            return Alamofire.ParameterEncoding.url.encode(getLoginRequest(), parameters: parameters).0
         default:
-            return Alamofire.ParameterEncoding.URL.encode(getClientRequest(), parameters: nil).0
+            return Alamofire.ParameterEncoding.url.encode(getClientRequest(), parameters: nil).0
         }
     }
     
-    func getClientRequest() -> NSURLRequest {
-        let URL = NSURL(string: AppConfig.Api.BasicUrl)!
-        let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
-        mutableURLRequest.HTTPMethod = method.rawValue
+    func getClientRequest() -> Foundation.URLRequest {
+        let URL = Foundation.URL(string: AppConfig.Api.BasicUrl)!
+        let mutableURLRequest = NSMutableURLRequest(url: URL.appendingPathComponent(path))
+        mutableURLRequest.httpMethod = method.rawValue
         
         // Set the Header
         let keychain = Keychain(service: AppConfig.KeyChainService)
@@ -95,13 +104,13 @@ enum Router: URLRequestConvertible {
         mutableURLRequest.setValue("application/vnd.PHPHub.v1+json", forHTTPHeaderField: "Accept")
         mutableURLRequest.setValue("iOS", forHTTPHeaderField: "X-Client-Platform")
         
-        return mutableURLRequest
+        return mutableURLRequest as URLRequest
     }
     
-    func getLoginRequest() -> NSURLRequest {
-        let URL = NSURL(string: AppConfig.Api.BasicUrl)!
-        let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
-        mutableURLRequest.HTTPMethod = method.rawValue
+    func getLoginRequest() -> Foundation.URLRequest {
+        let URL = Foundation.URL(string: AppConfig.Api.BasicUrl)!
+        let mutableURLRequest = NSMutableURLRequest(url: URL.appendingPathComponent(path))
+        mutableURLRequest.httpMethod = method.rawValue
         
         // Set the Header
         let accessTokenHandler = AccessTokenHandler()
@@ -111,6 +120,6 @@ enum Router: URLRequestConvertible {
         mutableURLRequest.setValue("application/vnd.PHPHub.v1+json", forHTTPHeaderField: "Accept")
         mutableURLRequest.setValue("iOS", forHTTPHeaderField: "X-Client-Platform")
         
-        return mutableURLRequest
+        return mutableURLRequest as URLRequest
     }
 }

@@ -16,21 +16,21 @@ class MainTabBarController: UITabBarController {
         self.delegate = self
     }
     
-    private func setupTabBarItems() {
+    fileprivate func setupTabBarItems() {
         let essentialNC = self.viewControllers![0] as! UINavigationController
         let essentialVC = essentialNC.topViewController! as! TopicListTableViewController
         essentialVC.title = "精华"
-        essentialVC.topicListApi = .Essential
+        essentialVC.topicListApi = .essential
         
         let wikiNC = self.viewControllers![2] as! UINavigationController
         let wikiVC = wikiNC.topViewController! as! TopicListTableViewController
         wikiVC.title = "社区WIKI"
-        wikiVC.topicListApi = .Wiki
+        wikiVC.topicListApi = .wiki
     }
 }
 
 extension MainTabBarController: UITabBarControllerDelegate {
-    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         guard !CurrentUserHandler.defaultHandler.isLoggedIn else {
             return true
         }
@@ -43,7 +43,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
             visibleController = viewController
         }
         
-        let shouldPresentSignInScreen = AppConfig.viewControllerClassesThatRequireLogin.contains { $0 == visibleController.dynamicType }
+        let shouldPresentSignInScreen = AppConfig.viewControllerClassesThatRequireLogin.contains { $0 == type(of: visibleController) }
         
         if shouldPresentSignInScreen {
             LoginViewController.presentLoginViewController() { success in

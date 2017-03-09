@@ -31,10 +31,10 @@ class LoginGuideViewController: UIViewController {
         loadURLContent()
     }
     
-    private func loadURLContent() {
+    fileprivate func loadURLContent() {
         if let stringURL = guideUrl, let webView = webView {
-            let url = NSURL(string: stringURL)!
-            webView.loadRequest(NSURLRequest(URL: url))
+            let url = URL(string: stringURL)!
+            webView.load(URLRequest(url: url))
             webView.allowsBackForwardNavigationGestures = true
         }
     }

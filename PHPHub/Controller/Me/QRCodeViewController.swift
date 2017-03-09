@@ -11,7 +11,7 @@ import SwiftQRCode
 
 class QRCodeViewController: UIViewController {
     lazy var scanner = QRCode()
-    var completion: ((success: Bool) -> Void)?
+    var completion: ((_ success: Bool) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +27,12 @@ class QRCodeViewController: UIViewController {
             }
             
             self.scanner.stopScan()
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }
         scanner.scanFrame = view.bounds
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         scanner.startScan()
     }

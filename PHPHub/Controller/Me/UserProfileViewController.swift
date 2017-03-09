@@ -32,7 +32,7 @@ class UserProfileViewController: UITableViewController {
         
         if let user = self.user {
             self.avatarImageView.kf_setImageWithURL(
-                NSURL(string: user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
+                URL(string: user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
             self.usernameLabel.text = user.username
             self.realnameLabel.text = user.realName
             self.userIntroLabel.text = user.signature
@@ -48,7 +48,7 @@ class UserProfileViewController: UITableViewController {
             if let currentUser = CurrentUserHandler.defaultHandler.user {
                 if currentUser.userId == user.userId {
                     let editProfileImage = UIImage(named: "edit_profile_icon")
-                    let rightBarButtonItem = UIBarButtonItem(image: editProfileImage, style: .Plain, target: self, action: Selector("showEditUserProfile"))
+                    let rightBarButtonItem = UIBarButtonItem(image: editProfileImage, style: .plain, target: self, action: Selector("showEditUserProfile"))
                     navigationController?.navigationItem.rightBarButtonItem = rightBarButtonItem
                 }
             }
@@ -58,9 +58,9 @@ class UserProfileViewController: UITableViewController {
     }
     
     // MARK: - Delegate TableView
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let user = self.user {
-            let section = indexPath.section
+            let section = (indexPath as NSIndexPath).section
             
             switch section {
             case 3 where !user.githubURL.isEmpty :
@@ -76,35 +76,35 @@ class UserProfileViewController: UITableViewController {
     }
 
     // MARK: - Navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier, let user = self.user {
             switch identifier {
             case "ShowAttention":
-                let attentionVC = segue.destinationViewController as! TopicListTableViewController
-                attentionVC.topicListApi = .Attention(user.userId)
+                let attentionVC = segue.destination as! TopicListTableViewController
+                attentionVC.topicListApi = .attention(user.userId)
                 attentionVC.hidesBottomBarWhenPushed = true
                 
-                if let currentUser = CurrentUserHandler.defaultHandler.user where currentUser.userId == user.userId {
+                if let currentUser = CurrentUserHandler.defaultHandler.user , currentUser.userId == user.userId {
                     attentionVC.title = "我的关注"
                 } else {
                     attentionVC.title = "TA的关注"
                 }
             case "ShowFavorite":
-                let favoriteVC = segue.destinationViewController as! TopicListTableViewController
-                favoriteVC.topicListApi = .Favorite(user.userId)
+                let favoriteVC = segue.destination as! TopicListTableViewController
+                favoriteVC.topicListApi = .favorite(user.userId)
                 favoriteVC.hidesBottomBarWhenPushed = true
                 
-                if let currentUser = CurrentUserHandler.defaultHandler.user where currentUser.userId == user.userId {
+                if let currentUser = CurrentUserHandler.defaultHandler.user , currentUser.userId == user.userId {
                     favoriteVC.title = "我的收藏"
                 } else {
                     favoriteVC.title = "TA的收藏"
                 }
             case "ShowUser":
-                let userPublicedVC = segue.destinationViewController as! TopicListTableViewController
-                userPublicedVC.topicListApi = .User(user.userId)
+                let userPublicedVC = segue.destination as! TopicListTableViewController
+                userPublicedVC.topicListApi = .user(user.userId)
                 userPublicedVC.hidesBottomBarWhenPushed = true
                     
-                if let currentUser = CurrentUserHandler.defaultHandler.user where currentUser.userId == user.userId {
+                if let currentUser = CurrentUserHandler.defaultHandler.user , currentUser.userId == user.userId {
                     userPublicedVC.title = "我的帖子"
                 } else {
                     userPublicedVC.title = "TA的帖子"
@@ -116,12 +116,12 @@ class UserProfileViewController: UITableViewController {
 
     }
     
-    func jumpToWebView(urlString: String) {
-        let safariViewController = SFSafariViewController(URL: NSURL(string: urlString)!)
-        self.presentViewController(safariViewController, animated: true, completion: nil)
+    func jumpToWebView(_ urlString: String) {
+        let safariViewController = SFSafariViewController(url: URL(string: urlString)!)
+        self.present(safariViewController, animated: true, completion: nil)
     }
     
-    private func setupCornerView(view: UIView) {
+    fileprivate func setupCornerView(_ view: UIView) {
         view.layer.cornerRadius = view.frame.height / 2
         view.layer.masksToBounds = true
     }

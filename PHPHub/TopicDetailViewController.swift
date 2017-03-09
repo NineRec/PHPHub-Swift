@@ -36,7 +36,7 @@ class TopicDetailViewController: UIViewController {
         webView = WKWebView(frame: contentView.bounds)
         contentView.addSubview(webView)
         // observe the web loading
-        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
+        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
 
         // circle the avatar
         avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2
@@ -50,30 +50,30 @@ class TopicDetailViewController: UIViewController {
         webView.frame = contentView.bounds
     }
     
-    private func updateTopicDetail() {
+    fileprivate func updateTopicDetail() {
         if let topic = topic {
             let user = topic.user
-            avatarImageView.kf_setImageWithURL(NSURL(string: user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
+            avatarImageView.kf_setImageWithURL(URL(string: user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
             usernameLabel.text = user.username
             signatureLabel.text = user.signature
             
-            voteButton.setTitle(" \(topic.voteCount)", forState: .Normal)
+            voteButton.setTitle(" \(topic.voteCount)", for: UIControlState())
 
-            let request = Router.TopicDetails(topic.topicId).URLRequest
-            webView.loadRequest(request)
+            let request = Router.topicDetails(topic.topicId).URLRequest
+            webView.load(request)
             webView.allowsBackForwardNavigationGestures = true
             
-            commentButton.setTitle(" \(topic.topicRepliesCount)", forState: .Normal)
+            commentButton.setTitle(" \(topic.topicRepliesCount)", for: UIControlState())
         }
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let keyPath = keyPath {
             switch keyPath {
             case "estimatedProgress":
                 progressView.setProgress(Float(webView.estimatedProgress), animated: true)
                 if webView.estimatedProgress == 1 {
-                    progressView.hidden = true
+                    progressView.isHidden = true
                     let jsString = "var metaTag=document.createElement('meta');" +
                         "metaTag.name='viewport';metaTag.content ='width=device-width,initial-scale=1.0';" +
                         "document.getElementsByTagName('head')[0].appendChild(metaTag);"
@@ -99,7 +99,7 @@ class TopicDetailViewController: UIViewController {
 }
 
 extension TopicDetailViewController: WKNavigationDelegate {
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         progressView.setProgress(0.0, animated: false)
     }
 }

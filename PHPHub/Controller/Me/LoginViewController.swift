@@ -11,7 +11,7 @@ import UIKit
 class LoginViewController: UIViewController {
     static let storyboardIdentifier = "login"
     
-    private var completion: ((success: Bool) -> Void)?
+    fileprivate var completion: ((_ success: Bool) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,19 +33,19 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func closeLoginViewController() {
-        appDelegate.tabBarController.dismissViewControllerAnimated(true) { }
+        appDelegate.tabBarController.dismiss(animated: true) { }
     }
     
-    static func presentLoginViewController(withCompletion completion: (Bool -> Void)) {
-        let loginNC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginNC") as! UINavigationController
+    static func presentLoginViewController(withCompletion completion: @escaping ((Bool) -> Void)) {
+        let loginNC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginNC") as! UINavigationController
         let loginVC = loginNC.topViewController! as! LoginViewController
         loginVC.completion = completion
         
         // Customize the login view controller presentation and transition styles.
-        loginNC.modalPresentationStyle = .OverCurrentContext
-        loginNC.modalTransitionStyle = .CrossDissolve
+        loginNC.modalPresentationStyle = .overCurrentContext
+        loginNC.modalTransitionStyle = .crossDissolve
         
         // Present the login view controller.
-        appDelegate.tabBarController.presentViewController(loginNC, animated: true, completion: nil)
+        appDelegate.tabBarController.present(loginNC, animated: true, completion: nil)
     }
 }
