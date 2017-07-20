@@ -20,8 +20,9 @@ class MeTableViewController: UITableViewController {
     var user: User? {
         didSet {
             if let user = user {
-                self.avatarImageView.kf_setImageWithURL(
-                    URL(string: user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
+                self.avatarImageView.kf.setImage(
+                    with: URL(string: user.avatar)!,
+                    placeholder: UIImage(named: "avatar_placeholder"))
                 self.usernameLabel.text = user.username
                 self.userIntroLabel.text = user.signature
             }

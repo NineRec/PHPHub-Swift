@@ -12,13 +12,13 @@ import SwiftyJSON
 class ApiHandler {
     static let sharedInstance = ApiHandler()
     
-    fileprivate let manager: Alamofire.Manager
+    fileprivate let manager: Alamofire.SessionManager
     
     fileprivate init() {
         let configures = URLSessionConfiguration.default
         configures.timeoutIntervalForRequest = Double(AppConfig.Api.TimeoutIntervals)
         
-        manager = Alamofire.Manager(configuration: configures)
+        manager = Alamofire.SessionManager(configuration: configures)
     }
     
     func StringRequest(_ URLRequest: URLRequestConvertible, callback: @escaping (String) -> Void) {
@@ -41,7 +41,7 @@ class ApiHandler {
         }
     }
     
-    func SwiftyJSONRequest(_ URLRequest: URLRequestConvertible, callback: (JSON) -> Void) {
+    func SwiftyJSONRequest(_ URLRequest: URLRequestConvertible, callback: @escaping (JSON) -> Void) {
         manager.request(URLRequest)
             .validate(statusCode: 200..<300)
             .responseSwiftyJSON { response in
@@ -64,11 +64,11 @@ class ApiHandler {
     func CollectionRequest<T: ResponseCollectionSerializable>(
         _ URLRequest: URLRequestConvertible,
         callback: @escaping ([T]) -> Void,
-        failure: (NSError) -> Void = { debugPrint($0) })
+        failure: @escaping (NSError) -> Void = { debugPrint($0) })
     {
         manager.request(URLRequest)
             .validate(statusCode: 200..<300)
-            .responseCollection { (response: Response<[T], NSError>) in
+            .responseCollection { response in
                 switch response.result {
                 case .success(let value):
                     callback(value)
@@ -88,11 +88,11 @@ class ApiHandler {
     func ObjectRequest<T: ResponseObjectSerializable>(
         _ URLRequest: URLRequestConvertible,
         callback: @escaping (T) -> Void,
-        failure: (NSError) -> Void = { debugPrint($0) })
+        failure: @escaping (NSError) -> Void = { debugPrint($0) })
     {
         manager.request(URLRequest)
             .validate(statusCode: 200..<300)
-            .responseObject { (response: Response<T, NSError>) in
+            .responseObject { response in
                 switch response.result {
                 case .success(let value):
                     callback(value)

@@ -1,7 +1,7 @@
 PODS:
-  - Alamofire (4.4.0)
-  - KeychainAccess (3.0.1)
-  - Kingfisher (3.5.1)
+  - Alamofire (4.5.0)
+  - KeychainAccess (3.0.2)
+  - Kingfisher (3.10.3)
   - PageMenu (2.0.0)
   - Reachability (3.2)
   - SwiftQRCode (3.0.2)
@@ -17,14 +17,14 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
-  KeychainAccess: 017ea25e313a49eda10bb19b0bb0760fb1edfe1a
-  Kingfisher: 12eeffeef42ea45b68c5e5acfe8ba9005b713ab4
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  KeychainAccess: a986406022dfc7c634c691ad3bec670cc6a32002
+  Kingfisher: a0ac82dc5bcf0388dd74b294cf2cc13730c63436
   PageMenu: 9c38fd7e0d9ef4b1408320f55bb907bbc0e538dc
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SwiftQRCode: 280589699d84195c2c573011aa52f2c015c31c34
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 5c067812fe14d21c1c896c1724e49cad8b8b3557
+PODFILE CHECKSUM: 3e769f005276a095ab7bbb88e958747cce92769a
 
 COCOAPODS: 1.1.1

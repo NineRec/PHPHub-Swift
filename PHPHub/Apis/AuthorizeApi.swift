@@ -10,7 +10,7 @@ import Alamofire
 import SwiftyJSON
 
 class AuthorizeApi {
-    class func getClientAccessToken(_ callback: (JSON) -> Void) {
+    class func getClientAccessToken(_ callback: @escaping (JSON) -> Void) {
         let parameters:[String: AnyObject] = [
             "grant_type" : "client_credentials" as AnyObject,
             "client_id": AppConfig.Api.Client_id as AnyObject,
@@ -28,7 +28,7 @@ class AuthorizeApi {
         }
     }
     
-    class func getLoginAccessToken(username: String, loginToken: String, callback: (JSON) -> Void) {
+    class func getLoginAccessToken(username: String, loginToken: String, callback: @escaping (JSON) -> Void) {
         let parameters:[String: AnyObject] = [
             "grant_type" : "login_token" as AnyObject,
             "client_id": AppConfig.Api.Client_id as AnyObject,
@@ -48,7 +48,7 @@ class AuthorizeApi {
         }
     }
     
-    class func refreshLoginAccessToken(_ callback: (JSON) -> Void) {
+    class func refreshLoginAccessToken(_ callback: @escaping (JSON) -> Void) {
         let parameters:[String: AnyObject] = [
             "grant_type" : "refresh_token" as AnyObject,
             "client_id": AppConfig.Api.Client_id as AnyObject,

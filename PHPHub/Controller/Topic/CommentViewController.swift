@@ -27,7 +27,7 @@ class CommentViewController: UIViewController {
         
         if let topic = topic, let webView = webView {
             let request = Router.topicReplies(topic.topicId).URLRequest
-            webView.load(request)
+            webView.load(request as URLRequest)
             webView.allowsBackForwardNavigationGestures = true
         }
     }

@@ -53,14 +53,14 @@ class TopicDetailViewController: UIViewController {
     fileprivate func updateTopicDetail() {
         if let topic = topic {
             let user = topic.user
-            avatarImageView.kf_setImageWithURL(URL(string: user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
+            avatarImageView.kf.setImage(with: URL(string: user.avatar)!, placeholder: UIImage(named: "avatar_placeholder"))
             usernameLabel.text = user.username
             signatureLabel.text = user.signature
             
             voteButton.setTitle(" \(topic.voteCount)", for: UIControlState())
 
             let request = Router.topicDetails(topic.topicId).URLRequest
-            webView.load(request)
+            webView.load(request as URLRequest)
             webView.allowsBackForwardNavigationGestures = true
             
             commentButton.setTitle(" \(topic.topicRepliesCount)", for: UIControlState())

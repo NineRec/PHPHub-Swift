@@ -15,7 +15,6 @@
 		251E941A1C17D64500894F8C /* ForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E94191C17D64500894F8C /* ForumViewController.swift */; };
 		251E941E1C17F2AA00894F8C /* TopicListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E941D1C17F2AA00894F8C /* TopicListTableViewCell.swift */; };
 		251E94211C180FB600894F8C /* TopicListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E94201C180FB600894F8C /* TopicListTableViewController.swift */; };
-		251E942A1C181D4D00894F8C /* AlamofireExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E94281C181D4D00894F8C /* AlamofireExtension.swift */; };
 		251E942B1C181D4D00894F8C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E94291C181D4D00894F8C /* Router.swift */; };
 		251E94311C184FB800894F8C /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E94301C184FB800894F8C /* AppConfig.swift */; };
 		2524FFA61C197E4300706D56 /* NSDate+TimeAgoSince.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2524FFA51C197E4300706D56 /* NSDate+TimeAgoSince.swift */; };
@@ -39,6 +38,7 @@
 		25EC94EB1C59B60900F18013 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EC94EA1C59B60900F18013 /* UserApi.swift */; };
 		25EC94F31C5F09DE00F18013 /* CurrentUserHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EC94F21C5F09DE00F18013 /* CurrentUserHandler.swift */; };
 		25EC94F51C5F542800F18013 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25EC94F41C5F542800F18013 /* Main.storyboard */; };
+		B1DE00241F211EC900F243F9 /* AlamofireSwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DE00231F211EC900F243F9 /* AlamofireSwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +64,6 @@
 		251E94191C17D64500894F8C /* ForumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForumViewController.swift; path = Controller/Fornum/ForumViewController.swift; sourceTree = "<group>"; };
 		251E941D1C17F2AA00894F8C /* TopicListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopicListTableViewCell.swift; path = Views/Topic/TopicListTableViewCell.swift; sourceTree = "<group>"; };
 		251E94201C180FB600894F8C /* TopicListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopicListTableViewController.swift; path = Controller/Topic/TopicListTableViewController.swift; sourceTree = "<group>"; };
-		251E94281C181D4D00894F8C /* AlamofireExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlamofireExtension.swift; path = Common/Network/AlamofireExtension.swift; sourceTree = "<group>"; };
 		251E94291C181D4D00894F8C /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Router.swift; path = Common/Network/Router.swift; sourceTree = "<group>"; };
 		251E94301C184FB800894F8C /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppConfig.swift; path = Common/AppConfig.swift; sourceTree = "<group>"; };
 		2524FFA51C197E4300706D56 /* NSDate+TimeAgoSince.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDate+TimeAgoSince.swift"; path = "Common/Utils/NSDate+TimeAgoSince.swift"; sourceTree = "<group>"; };
@@ -88,6 +87,7 @@
 		25EC94EA1C59B60900F18013 /* UserApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserApi.swift; path = Apis/UserApi.swift; sourceTree = "<group>"; };
 		25EC94F21C5F09DE00F18013 /* CurrentUserHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrentUserHandler.swift; path = Handlers/CurrentUserHandler.swift; sourceTree = "<group>"; };
 		25EC94F41C5F542800F18013 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Views/Main.storyboard; sourceTree = "<group>"; };
+		B1DE00231F211EC900F243F9 /* AlamofireSwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlamofireSwiftyJSON.swift; path = Common/Network/AlamofireSwiftyJSON.swift; sourceTree = "<group>"; };
 		BA68FAF24C1178BE9EA27469 /* Pods-PHPHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PHPHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PHPHub/Pods-PHPHub.debug.xcconfig"; sourceTree = "<group>"; };
 		D94635953E23DD59ACEC08BE /* Pods-PHPHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PHPHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-PHPHub/Pods-PHPHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -227,8 +227,8 @@
 		251E94231C181C5D00894F8C /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				251E94281C181D4D00894F8C /* AlamofireExtension.swift */,
 				251E94291C181D4D00894F8C /* Router.swift */,
+				B1DE00231F211EC900F243F9 /* AlamofireSwiftyJSON.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -462,6 +462,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2533047F1C20461900E3C5F3 /* User.swift in Sources */,
+				B1DE00241F211EC900F243F9 /* AlamofireSwiftyJSON.swift in Sources */,
 				253304831C20631300E3C5F3 /* TopicApi.swift in Sources */,
 				25B6FF1E1C2BBE4000C16070 /* QRCodeViewController.swift in Sources */,
 				25B6FF1C1C2ACB0300C16070 /* MeTableViewController.swift in Sources */,
@@ -479,7 +480,6 @@
 				2533047A1C1E9E5C00E3C5F3 /* AccessTokenHandler.swift in Sources */,
 				251E941E1C17F2AA00894F8C /* TopicListTableViewCell.swift in Sources */,
 				251E93E91C156E8800894F8C /* AppDelegate.swift in Sources */,
-				251E942A1C181D4D00894F8C /* AlamofireExtension.swift in Sources */,
 				253304771C1D97ED00E3C5F3 /* AuthorizeApi.swift in Sources */,
 				2557FED31C2A7EC900961EF9 /* CommentViewController.swift in Sources */,
 				251E94211C180FB600894F8C /* TopicListTableViewController.swift in Sources */,

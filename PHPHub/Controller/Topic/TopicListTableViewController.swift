@@ -76,7 +76,7 @@ class TopicListTableViewController: UITableViewController {
         cell.topicTitleLabel.text = topic.topicTitle
         cell.topicInfoLabel.text = "\(topic.node.nodeName) • 最后由 \(topic.lastReplyUser.username) • \(topic.updateAt.timeAgoSinceNow())"
         cell.topicRepliesCountLabel.text = String(topic.topicRepliesCount)
-        cell.avatarImageView.kf_setImageWithURL(URL(string: topic.user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
+        cell.avatarImageView.kf.setImage(with: URL(string: topic.user.avatar)!, placeholder: UIImage(named: "avatar_placeholder"))
         
         if (indexPath as NSIndexPath).row == topicList.count - 5 {
             handleLoadMore()

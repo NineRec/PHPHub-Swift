@@ -31,8 +31,9 @@ class UserProfileViewController: UITableViewController {
         super.viewDidLoad()
         
         if let user = self.user {
-            self.avatarImageView.kf_setImageWithURL(
-                URL(string: user.avatar)!, placeholderImage: UIImage(named: "avatar_placeholder"))
+            self.avatarImageView.kf.setImage(
+                with: URL(string: user.avatar)!,
+                placeholder: UIImage(named: "avatar_placeholder"))
             self.usernameLabel.text = user.username
             self.realnameLabel.text = user.realName
             self.userIntroLabel.text = user.signature

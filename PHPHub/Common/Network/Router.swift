@@ -10,15 +10,6 @@ import Alamofire
 import KeychainAccess
 
 enum Router: URLRequestConvertible {
-    /// Returns a URL request or throws if an `Error` was encountered.
-    ///
-    /// - throws: An `Error` if the underlying `URLRequest` is `nil`.
-    ///
-    /// - returns: A URL request.
-    public func asURLRequest() throws -> URLRequest {
-        
-    }
-
     static var AccessToken: String?
     
     // ImV2 API
@@ -32,16 +23,16 @@ enum Router: URLRequestConvertible {
     case userAttentionTopiclist(Int, [String: AnyObject])
     case userFavoriteTopiclist(Int, [String: AnyObject])
     
-    var method: Alamofire.Method {
+    var method: HTTPMethod {
         switch self {
         case .authorize:
-            return .POST
+            return .post
         case .topicList:
-            return .GET
+            return .get
         case .updateUser:
-            return .PUT
+            return .put
         default:
-            return .GET
+            return .get
         }
     }
     
@@ -70,24 +61,24 @@ enum Router: URLRequestConvertible {
     
     // MARK: URLRequestConvertible
     
-    var URLRequest: NSMutableURLRequest {
+    func asURLRequest() throws -> URLRequest {
         switch self {
         case .authorize(let parameters):
-            return Alamofire.ParameterEncoding.url.encode(getClientRequest(), parameters: parameters).0
+            return try URLEncoding.default.encode(getClientRequest(), with: parameters)
         case .topicList(let parameters):
-            return Alamofire.ParameterEncoding.url.encode(getClientRequest(), parameters: parameters).0
+            return try URLEncoding.default.encode(getClientRequest(), with: parameters)
         case .userTopiclist(_, let parameters):
-            return Alamofire.ParameterEncoding.url.encode(getLoginRequest(), parameters: parameters).0
+            return try URLEncoding.default.encode(getLoginRequest(), with: parameters)
         case .userAttentionTopiclist(_, let parameters):
-            return Alamofire.ParameterEncoding.url.encode(getLoginRequest(), parameters: parameters).0
+            return try URLEncoding.default.encode(getLoginRequest(), with: parameters)
         case .userFavoriteTopiclist(_, let parameters):
-            return Alamofire.ParameterEncoding.url.encode(getLoginRequest(), parameters: parameters).0
+            return try URLEncoding.default.encode(getLoginRequest(), with: parameters)
         case .currentUser:
-            return Alamofire.ParameterEncoding.url.encode(getLoginRequest(), parameters: nil).0
+            return try URLEncoding.default.encode(getLoginRequest(), with: nil)
         case .updateUser(_, let parameters):
-            return Alamofire.ParameterEncoding.url.encode(getLoginRequest(), parameters: parameters).0
+            return try URLEncoding.default.encode(getLoginRequest(), with: parameters)
         default:
-            return Alamofire.ParameterEncoding.url.encode(getClientRequest(), parameters: nil).0
+            return try URLEncoding.default.encode(getClientRequest(), with: nil)
         }
     }
     
